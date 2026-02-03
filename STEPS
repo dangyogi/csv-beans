@@ -1,0 +1,44 @@
+Money:
+
+# only updated by hand:
+Globals: name|int|decimal
+Accounts: account|section|category|type
+    section: "Cash Flow", "Balance"
+    category: "Breakfast", "Other", "Current Balance"
+    type: "Revenue", "Expenses"
+
+    Note: reconciles with account "revenue" or "expense" show up in Other with their detail as the account.
+Starts: account|detail|coin|b1|b5|b10|b20|b50|b100 => total category section type
+
+Reconcile: date|account|detail|coin|b1|b5|b10|b20|b50|b100|donations
+        => total category section type ticket_price tickets_sold
+
+1. update_reconcile --trail-run/-t --no-clear/-n [reconcile_file]
+ 
+   Appends Reconcile.csv to Reconcile table
+   Clears Reconcile.csv
+
+2. cash_balance --trail-run/-t
+
+   Appends to Reconcile table:
+
+   <today>|cash|w/o starts|...
+   <today>|cash|w/starts  |...
+
+3. cash_swap --trail-run/-t
+
+   Last line of Reconcile table must be cash|w/starts| line from cash_balance.
+
+   Appends to Reconcile table:
+
+   <today>|cash out|          |...
+   <today>|cash in |          |...
+   <today>|cash    |w/o starts|...
+   <today>|cash    |w/starts  |...
+
+4. treasurer_report --pdf/-p -m month -y year
+    - (wait until Oct for Apr)
+    - as T-Report.pdf file.
+
+   No updates to database
+

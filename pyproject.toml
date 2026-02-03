@@ -1,0 +1,25 @@
+# pyproject.toml for csv-beans
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["csv_beans"]
+
+[project]
+name = "csv-beans"
+version = "0.0.1"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.11.2"
+dependencies = ["csv-app"]
+
+[project.urls]
+repository = "https://github.com/dangyogi/csv-beans.git"
+
+[project.scripts]
+new-month = "csv_beans.new_month:run"
+rows = "csv_beans.rows:run"
+tables = "csv_beans.tables:run"
