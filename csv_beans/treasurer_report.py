@@ -5,8 +5,8 @@ from collections import defaultdict
 from itertools import groupby
 from operator import attrgetter
 
-from database import *
-from report import *
+from .database import *
+from csv_app.report import *
 
 
 def run():
@@ -107,7 +107,7 @@ def run():
                 if section != "Balance":
                     for account_row in account_rows:
                         account = account_row.account
-                        if account not in ("revenue", "expense"):
+                        if not account.startswith("revenue") and not account.startswith("expense"):
                             if account.endswith(" tickets"):
                                 templ = Row_template("l3", account, text2_format="({})")
                             else:
@@ -154,14 +154,14 @@ def run():
     exp_details = {}
     for i in range(prev_index, final_index):  # loop from prev_index up to (but not including) final_index
         recon = Reconcile[i]
-        if recon.account == "revenue":
+        if recon.account.startswith("revenue"):
             if recon.detail not in rev_details:
                 templ = Row_template("l3", recon.detail)
                 rev_details[recon.detail] = templ
                 picks["revenue"].add_child(templ)
             rev_details[recon.detail] += recon.total
             accounts["donations"] += recon.donations
-        elif recon.account == "expense":
+        elif recon.account.startswith("expense"):
             if recon.detail not in exp_details:
                 templ = Row_template("l3", recon.detail)
                 exp_details[recon.detail] = templ
@@ -199,7 +199,3 @@ def run():
         report.print_init()
         report.print()
 
-
-
-if __name__ == "__main__":
-    run()

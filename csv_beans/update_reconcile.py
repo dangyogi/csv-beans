@@ -10,8 +10,8 @@ from collections import defaultdict
 import math
 import sys
 
-from database import *
-from report import *
+from .database import *
+from csv_app.report import *
 
 
 def run():
@@ -48,7 +48,3 @@ def run():
                 return
         print("Preserving", recon_file)
 
-
-
-if __name__ == "__main__":
-    run()

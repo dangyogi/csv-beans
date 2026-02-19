@@ -30,6 +30,7 @@ door tickets  |Cash Flow|Breakfast      |Revenue
 bf donations  |Cash Flow|Breakfast      |Revenue 
 Sam's card    |Cash Flow|Breakfast      |Expenses
 bf supplies   |Cash Flow|Breakfast      |Expenses
+expense, bf   |Cash Flow|Breakfast      |Expenses
 120 Club      |Cash Flow|Other          |Revenue 
 revenue       |Cash Flow|Other          |Revenue 
 donations     |Cash Flow|Other          |Revenue 

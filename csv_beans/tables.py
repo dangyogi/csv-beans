@@ -3,7 +3,7 @@
 from statistics import mean
 
 from csv_app.table import *
-from rows import Rows
+from .rows import Rows
 
 
 class No_results(Exception):
@@ -97,6 +97,3 @@ __all__ = "Decimal date datetime timedelta abbr_month Tables Database " \
           "load_database save_database load_csv load_all clear_all check_foreign_keys " \
           "CSV_dialect CSV_format".split()
 
-
-if __name__ == "__main__":
-    run()

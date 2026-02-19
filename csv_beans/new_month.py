@@ -5,7 +5,7 @@ r'''Stores num_at_meeting in current Month.
 
 from sys import exit
 
-from database import *
+from .database import *
 
 
 def run():
@@ -54,7 +54,3 @@ def run():
     else:
         print("Trial_run: Database not saved")
 
-
-
-if __name__ == "__main__":
-    run()

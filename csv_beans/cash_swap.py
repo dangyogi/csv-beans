@@ -13,7 +13,7 @@ from datetime import date
 import math
 import sys
 
-from database import *
+from .database import *
 
 
 def run():
@@ -176,7 +176,3 @@ def run():
     if not args.trial_run:
         save_database()
 
-
-
-if __name__ == "__main__":
-    run()

@@ -258,6 +258,3 @@ __all__ = "Decimal date datetime timedelta abbr_month bills Rows".split()
 def run():
     create_database_py(Rows)
 
-
-if __name__ == "__main__":
-    run()
