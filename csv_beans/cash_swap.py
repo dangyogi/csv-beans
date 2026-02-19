@@ -56,7 +56,7 @@ def run():
     cash_out = bills()
     cash_in = bills()
 
-    attrs = tuple(target.stored_names)
+    attrs = tuple(col.name for col in target.bill_columns)
 
     # rob from high bills to fill short bills
     if verbose:
