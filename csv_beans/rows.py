@@ -91,6 +91,10 @@ class bills:
         Column("total", parse=Decimal, calculated=True),
     )
 
+    @property
+    def bill_columns(self):
+        return (col for col in bills.columns if not col.calculated)
+
     def __init__(self, coin=0, b1=0, b5=0, b10=0, b20=0, b50=0, b100=0):
         self.coin = coin
         self.b1 = b1
@@ -113,29 +117,29 @@ class bills:
         return bills(**self.as_attrs())
 
     def as_attrs(self):
-        return {col.name: getattr(self, col.name) for col in self.columns}
+        return {col.name: getattr(self, col.name) for col in self.bill_columns}
 
     def __add__(self, bill2):
         r'''Returns new bills object.
         '''
-        return bills(**{col.name: getattr(self, col.name) + getattr(bill2, col.name) for col in self.columns})
+        return bills(**{col.name: getattr(self, col.name) + getattr(bill2, col.name) for col in self.bill_columns})
 
     def __sub__(self, bill2):
         r'''Returns new bills object.
         '''
-        return bills(**{col.name: getattr(self, col.name) - getattr(bill2, col.name) for col in self.columns})
+        return bills(**{col.name: getattr(self, col.name) - getattr(bill2, col.name) for col in self.bill_columns})
 
     def __iadd__(self, bill2):
         r'''Adds bill2 to self.
         '''
-        for col in self.columns:
+        for col in self.bill_columns:
             self.add_to_attr(col.name, bill2)
         return self
 
     def __isub__(self, bill2):
         r'''Subtracts bill2 from self.
         '''
-        for col in self.columns:
+        for col in self.bill_columns:
             self.sub_from_attr(col.name, bill2)
         return self
 
@@ -155,7 +159,7 @@ class bills:
 
     @property
     def total(self):
-        return sum(self.value(col.name) * getattr(self, col.name) for col in self.columns)
+        return sum(self.value(col.name) * getattr(self, col.name) for col in self.bill_columns)
 
     def print_header(self, file):
         r'''Appends bill column names to end of current print line.
