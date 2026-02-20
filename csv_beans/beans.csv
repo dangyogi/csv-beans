@@ -15,7 +15,7 @@ month|year|start_date|end_date  |num_at_meeting|staff_at_breakfast|tickets_claim
    11|2025|Nov 02, 25|Nov 28, 25|            14|                14|             61
    12|2025|Nov 29, 25|Dec 31, 25|            13|                 8|             54
     1|2026|Jan 01, 26|Jan 26, 26|            14|                12|             64
-    2|2026|Jan 27, 26|          |              |                  |               
+    2|2026|Jan 27, 26|          |            15|                13|             93
 
 Globals
 name             |int|decimal

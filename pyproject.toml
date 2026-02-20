@@ -20,10 +20,9 @@ dependencies = ["csv-app"]
 repository = "https://github.com/dangyogi/csv-beans.git"
 
 [project.scripts]
+beans-rows = "csv_beans.rows:run"
+beans-tables = "csv_beans.tables:run"
 cash-balance = "csv_beans.cash_balance:run"
 cash-swap = "csv_beans.cash_swap:run"
 treasurer-report = "csv_beans.treasurer_report:run"
 update-reconcile = "csv_beans.update_reconcile:run"
-new-month = "csv_beans.new_month:run"
-beans-rows = "csv_beans.rows:run"
-beans-tables = "csv_beans.tables:run"
