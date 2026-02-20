@@ -81,7 +81,7 @@ def run():
     # Create Row_templates from Accounts:
     accounts = {}
     sections = []
-    picks = {}  # expense, revenue, bf, cash flow, balance, bank, cash
+    picks = {}  # 'expense, bf', expense, revenue, bf, cash flow, balance, bank, cash
     for section, categories in groupby(Accounts.values(), key=attrgetter("section")):
         # "Cash Flow" and "Balance"
         if section is None:
@@ -101,9 +101,9 @@ def run():
                 type_kws = dict(force=True)
             else:
                 type_kws = dict()
-            types_ = []
+            types_ = []         # list of Row_templates
             for type, account_rows in groupby(types, key=attrgetter("type")):
-                accounts_ = []
+                accounts_ = []  # list of Row_templates
                 if section != "Balance":
                     for account_row in account_rows:
                         account = account_row.account
@@ -116,7 +116,9 @@ def run():
                             accounts_.append(templ)
                 if type == "Expenses":
                     templ = Row_template("l2", type, *accounts_, invert_parent=True, **type_kws)
-                    if category == "Other":
+                    if category == "Breakfast":
+                        picks["expense, bf"] = templ
+                    else:
                         picks["expense"] = templ
                 else:
                     templ = Row_template("l2", type, *accounts_, **type_kws)
@@ -150,23 +152,16 @@ def run():
     other_revenue = defaultdict(int)   # {account: total}
     other_expenses = defaultdict(int)  # {account: total}
 
-    rev_details = {}
-    exp_details = {}
+    details = {}  # {account, detail: Row_template}
     for i in range(prev_index, final_index):  # loop from prev_index up to (but not including) final_index
         recon = Reconcile[i]
-        if recon.account.startswith("revenue"):
-            if recon.detail not in rev_details:
+        if recon.account.startswith("revenue") or recon.account.startswith("expense"):
+            key = recon.account, recon.detail
+            if key not in details:
                 templ = Row_template("l3", recon.detail)
-                rev_details[recon.detail] = templ
-                picks["revenue"].add_child(templ)
-            rev_details[recon.detail] += recon.total
-            accounts["donations"] += recon.donations
-        elif recon.account.startswith("expense"):
-            if recon.detail not in exp_details:
-                templ = Row_template("l3", recon.detail)
-                exp_details[recon.detail] = templ
-                picks["expense"].add_child(templ)
-            exp_details[recon.detail] += recon.total
+                details[key] = templ
+                picks[recon.account].add_child(templ)
+            details[key] += recon.total
             accounts["donations"] += recon.donations
         elif recon.section == "Cash Flow":
             if recon.account.endswith(" tickets"):
