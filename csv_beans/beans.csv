@@ -32,6 +32,7 @@ Sam's card    |Cash Flow|Breakfast      |Expenses
 bf supplies   |Cash Flow|Breakfast      |Expenses
 expense, bf   |Cash Flow|Breakfast      |Expenses
 120 Club      |Cash Flow|Other          |Revenue 
+Mardi Gras    |Cash Flow|Other          |Revenue 
 revenue       |Cash Flow|Other          |Revenue 
 donations     |Cash Flow|Other          |Revenue 
 meeting dinner|Cash Flow|Other          |Expenses
@@ -142,4 +143,8 @@ Feb 20, 26|cash          |cash out            |   0|  1| 4|  6| 11|  2|   0|    
 Feb 20, 26|cash          |cash in             |   1|  0| 0|  0|  0|  0|   4|        0
 Feb 20, 26|cash          |w/o starts          |4.25| 19| 6|  6| 14|  6|  24|        0
 Feb 20, 26|cash          |w/starts            |4.25| 49|10| 10| 14|  6|  24|        0
+Feb 27, 26|Mardi Gras    |50/50 income        |   0|  0| 0|  0|  6|  0|   0|        0
+Feb 28, 26|donations     |unaccounted $5      |   0|  0| 1|  0|  0|  0|   0|        0
+Feb 28, 26|cash          |w/o starts          |4.25| 19| 7|  6| 20|  6|  24|        0
+Feb 28, 26|cash          |w/starts            |4.25| 49|11| 10| 20|  6|  24|        0
 

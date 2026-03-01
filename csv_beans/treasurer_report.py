@@ -15,6 +15,7 @@ def run():
     today = date.today()
 
     parser = argparse.ArgumentParser()
+    parser.add_argument("--day", "-d", type=int, default=None)
     parser.add_argument("--month", "-m", type=int, default=today.month)
     parser.add_argument("--year", "-y", type=int, default=today.year)
     parser.add_argument("--pdf", "-p", action="store_true", default=False)
@@ -29,12 +30,15 @@ def run():
     month = args.month
     if today.month < month:
         year -= 1
+    day = args.day
 
     print()
     print("Current month", abbr_month(month), year)
     print()
     cur_month = Months[year, month]
     end_date = cur_month.end_date
+    if end_date is None and day is not None:
+        end_date = date(year, month, day)
 
     def find_final(end_date):
         r'''Find the final balance in the Reconcile table for end_date.
