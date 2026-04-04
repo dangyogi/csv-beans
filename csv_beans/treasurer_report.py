@@ -34,7 +34,6 @@ def run():
 
     print()
     print("Current month", abbr_month(month), year)
-    print()
     cur_month = Months[year, month]
     end_date = cur_month.end_date
     if end_date is None and day is not None:
@@ -65,6 +64,10 @@ def run():
             final_balance = None
         end_date = Reconcile[-1].date
 
+    as_of = f"as of {end_date.strftime('%b %d, %y')}"
+    print(as_of)
+    print()
+
     # print Treasurer's Report
     set_canvas("T-Report")
     report = Report(title=(Centered(span=5, size="title", bold=True),),
@@ -75,7 +78,7 @@ def run():
                    )
 
     report.new_row("title", "Treasurer's Report")
-    report.new_row("title", f"as of {end_date.strftime('%b %d, %y')}", size=report.default_size)
+    report.new_row("title", as_of, size=report.default_size)
 
     prev_end_date  = cur_month.start_date - timedelta(days=1)
     prev_index, prev_balance = find_final(prev_end_date)
