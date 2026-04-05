@@ -9,7 +9,7 @@ from .rows import bills, Rows
 class No_results(Exception):
     pass
 
-class Months(table_unique):
+class Months(Table_unique):
     @staticmethod
     def inc_month(year, month):
         r'''Returns next month (regardless of the contents of this Table) as (year, month).
