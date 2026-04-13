@@ -1,2 +1,16 @@
 Reconcile
 date      |account       |detail              |coin|b1|b5|b10|b20|b50|b100|donations
+Apr 8,  26|expense       |Bruce, purch 3 books|0.10|  |  |  1|  1|  1|    |         
+Apr 9,  26|meeting dinner|Steven, Millers     |0.34| 4|  |   |  2|   |   2|         
+Apr 10, 26|bf supplies   |Steven, PO 260415   |0.20|  | 1|  1|  1|   |    |         
+Apr 10, 26|expense       |Steven, M/F utensils|0.25| 1| 1|  1|  1|   |    |         
+Apr 11, 26|adv tickets   |Steven              |    | 5|  |   |  1|   |    |         
+Apr 11, 26|adv tickets   |Mark P              |    |  | 1|  1|  1|   |    |         
+Apr 11, 26|adv tickets   |Tom                 |    |  | 6|   |   |   |    |         
+Apr 11, 26|adv tickets   |Marvin              |    |  |  | -1|  2|   |    |         
+Apr 11, 26|adv tickets   |Bruce               |    |  |  |  1|   |   |    |         
+Apr 11, 26|door tickets  |w/start             |    |11| 8|  1|  3|   |    |         
+Apr 11, 26|50/50         |w/start             |    |18| 6|  3|   |   |    |         
+Apr 12, 26|revenue       |M/F 50/50 income    |1.00|32|12|  4|   |   |    |         
+Apr 12, 26|expense       |Marvin, M/F PoFolks |0.35| 2|  |  1|   |   |   4|         
+Apr 13, 26|revenue       |M/F settlement      |0.61| 2|  |  2|  3|   |    |         
