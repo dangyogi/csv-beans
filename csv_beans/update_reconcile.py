@@ -52,13 +52,17 @@ def run():
             if starting_balance is not None:
                 ending_balance += row
                 if (row.account, "start") in Starts:
-                    ending_balance -= Starts[row.account, "start"]
+                    starts_row = Starts[row.account, "start"]
+                    ending_balance -= starts_row
+                    print(f"            - starts({starts_row.total}) = {row.total - starts_row.total}")
+                    total -= starts_row.total
         elif row.type == "Expenses":
             total -= row.total
             if starting_balance is not None:
                 ending_balance -= row
     print("total", total)
     if starting_balance is not None:
+        print("starting balance:", starting_balance.total)
         print("ending balance|coin|b1|b5|b10|b20|b50|b100|total")
         print("              ", end='')
         print(f"|{ending_balance.coin:4.3}", end='')
