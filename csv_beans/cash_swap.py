@@ -172,7 +172,11 @@ def run():
 
     print()
     print("starts:", starts.total)
+    print()
 
-    if not args.trial_run:
+    if args.trial_run:
+        print("Trial_run: Database not saved")
+    else:
+        print("Saving database")
         save_database()
 
