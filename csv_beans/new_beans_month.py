@@ -29,7 +29,7 @@ def run():
     if last_month.end_date is not None:
         print(f"end_date={last_month.end_date:%b %d, %y}")
     else:
-        print(f"end_date=None")
+        print("last_month.end_date is None")
         if end_day is None:
             end_date = date.today()
         else:
