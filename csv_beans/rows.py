@@ -225,7 +225,7 @@ class Reconcile(Starts):
         Column("ticket_price", "tkt_prc", parse=int, calculated=True),
         Column("tickets_sold", "tkts_sold", parse=int, calculated=True),
     )
-    primary_keys = None
+    primary_keys = ()
 
     @property
     def total(self):
