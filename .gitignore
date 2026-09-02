@@ -1,5 +1,6 @@
 # project
-beans-save.csv
+beans.csv-save
+log_*.txt
 
 # My stuff
 .*.swp

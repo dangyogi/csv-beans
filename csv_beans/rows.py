@@ -1,11 +1,16 @@
 # rows.py
 
 import math
+import logging
 
 from csv_app.row import *
 from csv_app.table import Database, set_database_filename
+from csv_app.action import Steps
+from tui_app.table_screen import table_screen
 
 set_database_filename("beans.csv")
+
+logger = logging.getLogger('csv-beans.rows')
 
 
 class Months(Row):
@@ -23,6 +28,12 @@ class Months(Row):
         Date_column("breakfast_date", "bf_date", calculated=True),
     )
     primary_keys = "year", "month"
+
+    row_popup_command_fns = "Reconcile",
+
+    def Reconcile(self, app):
+        logger.info(f"Months row({self.month_str=}, {app=}).Reconcile executed")
+        return table_screen(Database.Reconcile, app.screen, date__ge=self.start_date, date__le=self.end_date)
 
     @property
     def month_str(self):
@@ -77,6 +88,13 @@ class Accounts(Row):
         Column("type"),
     )
     primary_key = "account"
+    sort_on_save = False
+
+    row_popup_command_fns = "Reconcile",
+
+    def Reconcile(self, app):
+        logger.info(f"Accounts row({self.account=}, {app=}).Reconcile executed")
+        return table_screen(Database.Reconcile, app.screen, account=self.account)
 
 class bills:
     # If columns are added or deleted, you'll need to redo Starts.columns comment and Reconcile.columns!
@@ -201,6 +219,7 @@ class Starts(Row, bills):  # row first, so it's __init__ is used.
     )
     primary_keys = "account", "detail"
     foreign_keys = "Accounts",
+    sort_on_save = False
 
     @property
     def section(self):
@@ -214,17 +233,14 @@ class Starts(Row, bills):  # row first, so it's __init__ is used.
     def type(self):
         return Database.Accounts[self.account].type
 
-class Reconcile(Starts):
+class Pending(Starts):
     columns = (
         Date_column("date", required=True),
     ) + Starts.columns[0:1] + (  # account column
         Column("detail"), # detail without required=True
     ) + Starts.columns[2:9] + (  # rest of Starts stored columns
         Column("donations", "don", parse=Decimal, default=0),
-    ) + Starts.columns[9:] + (   # Starts calculated columns
-        Column("ticket_price", "tkt_prc", parse=int, calculated=True),
-        Column("tickets_sold", "tkts_sold", parse=int, calculated=True),
-    )
+    ) + Starts.columns[9:]       # Starts calculated columns
     primary_keys = ()
 
     @property
@@ -232,6 +248,12 @@ class Reconcile(Starts):
         r'''Includes Start amount.
         '''
         return super().total - self.donations
+
+class Reconcile(Pending):
+    columns = Pending.columns + (
+        Column("ticket_price", "tkt_prc", parse=int, calculated=True),
+        Column("tickets_sold", "tkts_sold", parse=int, calculated=True),
+    )
 
     @property
     def ticket_price(self):
@@ -252,7 +274,7 @@ class Reconcile(Starts):
 
 
 # These must be in logical order based on what has to be defined first
-Rows = (Months, Globals, Accounts, Starts, Reconcile,
+Rows = (Months, Globals, Accounts, Starts, Pending, Reconcile, Steps,
        )
 
 

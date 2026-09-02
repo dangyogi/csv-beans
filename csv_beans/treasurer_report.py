@@ -24,13 +24,13 @@ def run():
 
     load_database()
 
-    year = args.year
+    year = args.year     # default today.year
     if year < 2000:
         year += 2000
-    month = args.month
+    month = args.month   # default today.month
     if today.month < month:
         year -= 1
-    day = args.day
+    day = args.day       # default None
 
     print()
     print("Current month", abbr_month(month), year)
