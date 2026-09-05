@@ -1,39 +1,30 @@
 # cash_swap.py
 
-r'''
-  - figure out "monthly", "cash out" and "cash in" and record in Reconcile for today
-  - record "monthly", "final balance" in Reconcile table for today
-  - print out initial bill counts and total
-  - print out "cash out" and total
-  - print out "cash in" and total
-  - print out final bill counts and total
-'''
-
-from datetime import date
+import logging
+from io import StringIO
 import math
-import sys
 
 from .database import *
 
 
-def run():
-    import argparse
+logger = logging.getLogger('csv-beans.cash_swap')
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--trial-run", "-t", action="store_true", default=False)
-    parser.add_argument("--verbose", "-v", action="store_true", default=False)
-
-    args = parser.parse_args()
-
-    verbose = args.verbose
-
-    load_database()
-
+def cash_swap(step, app):
+    r'''
+    - figure out "monthly", "cash out" and "cash in" and record in Reconcile for today
+    - record "monthly", "final balance" in Reconcile table for today
+    - print out initial bill counts and total
+    - print out "cash out" and total
+    - print out "cash in" and total
+    - print out final bill counts and total
+    '''
     today = date.today()
 
     last_recon = Reconcile[-1]
-    assert last_recon.account == "cash", f'Last Reconcile account must be "cash", not "{last_recon.account}"'
-    assert last_recon.detail == "w/starts", f'Last Reconcile detail must be "w/starts", not "{last_recon.detail}"'
+    if last_recon.account != "cash":
+        raise ValueError(f'Last Reconcile account must be "cash", not "{last_recon.account}"')
+    if last_recon.detail != "w/starts":
+        raise ValueError(f'Last Reconcile detail must be "w/starts", not "{last_recon.detail}"')
     initial_with_starts = last_recon.copy()
 
     # Figure out the cash exchange:
@@ -46,11 +37,6 @@ def run():
     target = initial_balance.copy()
 
     ending_minimums = Starts["cash", "minimums"]
-    if verbose:
-        print("ending_minimums", end='')
-        ending_minimums.print_header(sys.stdout)
-        print("               ", end='')
-        ending_minimums.print(sys.stdout)
 
     # Figure out cash_out and cash_in:
     cash_out = bills()
@@ -59,15 +45,10 @@ def run():
     attrs = tuple(col.name for col in target.bill_columns)
 
     # rob from high bills to fill short bills
-    if verbose:
-        print()
-        print("rob from high bills to fill short bills:")
     for i in range(len(attrs) - 1):
         key = attrs[i]
         target_value = getattr(target, key) - getattr(cash_out, key)
         minimum_value = getattr(ending_minimums, key)
-        if verbose:
-            print(f"{key=}, {target_value=}, {minimum_value=}")
         if target_value < minimum_value:
             i2 = i + 1
             next_key = attrs[i2]
@@ -75,24 +56,18 @@ def run():
                 i2 += 1
                 next_key = attrs[i2]
             ratio = bills.value(next_key) / bills.value(key)
-            assert ratio.is_integer(), f"expected integer ratio, got {ratio=}"
+            if not ratio.is_integer():
+                raise ValueError(f"expected integer ratio, got {ratio=}")
             ratio = int(ratio)
             transfer = math.ceil((minimum_value - target_value) / ratio)
-            if verbose:
-                print(f"{transfer}x{next_key} -> {ratio * transfer}x{key}")
             cash_out.add_to_attr(next_key, transfer)
             cash_in.add_to_attr(key, ratio * transfer)
 
     # convert lower bills to higher bills
-    if verbose:
-        print()
-        print("convert lower bills to higher bills:")
     for i in range(len(attrs) - 1):
         key = attrs[i]
         target_value = getattr(target, key) - getattr(cash_out, key) + getattr(cash_in, key)
         minimum_value = getattr(ending_minimums, key)
-        if verbose:
-            print(f"{key=}, {target_value=}, {minimum_value=}")
         if target_value > minimum_value:
             i2 = i + 1
             next_key = attrs[i2]
@@ -100,11 +75,10 @@ def run():
                 i2 += 1
                 next_key = attrs[i2]
             ratio = bills.value(next_key) / bills.value(key)
-            assert ratio.is_integer(), f"expected integer ratio, got {ratio=}"
+            if not ratio.is_integer():
+                raise ValueError(f"expected integer ratio, got {ratio=}")
             ratio = int(ratio)
             transfer = math.floor((target_value - minimum_value) / ratio)
-            if verbose:
-                print(f"{ratio * transfer}x{key} -> {transfer}x{next_key}")
             cash_out.add_to_attr(key, ratio * transfer)
             cash_in.add_to_attr(next_key, transfer)
             if key == 'b20':
@@ -114,31 +88,21 @@ def run():
                 extra_b10s = (target.b10 - cash_out.b10 + cash_in.b10) - ending_minimums.b10
                 if extra_b10s > 0:
                     t = min(transfer, extra_b10s)
-                    if verbose:
-                        print(f"{2*t}xb20 + {t}xb10 -> {t}xb50")
                     cash_out.b20 += 2*t
                     cash_out.b10 += t
                     cash_in.b50 += t
 
     # normalize cash_out against cash_in for each bill
-    if verbose:
-        print()
-        print("normalize cash_out against cash_in for each bill:")
     for bill in "coin b1 b5 b10 b20 b50 b100".split():
         if getattr(cash_out, bill) >= getattr(cash_in, bill):
-            if verbose:
-                print(f"{getattr(cash_in, bill)}x{bill} subtracted from cash_out.  Cash_in.{bill} set to 0")
             cash_out.sub_from_attr(bill, cash_in)
             setattr(cash_in, bill, 0)
         elif getattr(cash_in, bill) >= getattr(cash_out, bill):
-            if verbose:
-                print(f"{getattr(cash_out, bill)}x{bill} subtracted from cash_in.  Cash_out.{bill} set to 0")
             cash_in.sub_from_attr(bill, cash_out)
             setattr(cash_out, bill, 0)
-    if verbose:
-        print()
 
-    assert cash_in.total == cash_out.total, f"{cash_in.total=} != {cash_out.total=}"
+    if cash_in.total != cash_out.total:
+        raise ValueError(f"{cash_in.total=} != {cash_out.total=}")
 
     # OK, now we have the calculated cash_out and cash_in!
 
@@ -147,36 +111,29 @@ def run():
 
     # Figure out what our final_balance is:
     final_no_starts = initial_balance - cash_out + cash_in
-    assert initial_balance.total == final_no_starts.total, f"{initial_balance.total=} != {final_no_starts.total=}"
+    if initial_balance.total != final_no_starts.total:
+        raise ValueError(f"{initial_balance.total=} != {final_no_starts.total=}")
 
     Reconcile.insert(date=today, account="cash", detail="w/o starts", **final_no_starts.as_attrs())
     final_with_starts = final_no_starts + starts
     Reconcile.insert(date=today, account="cash", detail="w/starts", **final_with_starts.as_attrs())
 
     # Give the user the results:
-    print("                | coin| b1| b5|b10|b20|b50|b100|   total")
-    print("have w/o starts ", end='')
-    initial_balance.print(file=sys.stdout)
-    print("have w/starts   ", end='')
-    initial_with_starts.print(file=sys.stdout)
-    print("cash out        ", end='')
-    cash_out.print(file=sys.stdout)
-    print("cash in         ", end='')
-    cash_in.print(file=sys.stdout)
-    print("final w/o starts", end='')
-    final_no_starts.print(file=sys.stdout)
-    print("minimums        ", end='')
-    ending_minimums.print(file=sys.stdout)
-    print("final w/starts  ", end='')
-    final_with_starts.print(file=sys.stdout)
+    logger.info("                | coin| b1| b5|b10|b20|b50|b100|   total")
+    buf = StringIO()
+    def log(line_start, bills):
+        buf.clear()
+        buf.write(line_start)
+        bills.print(file=buf)
+        logger.info(buf.getvalue())
+    log("have w/o starts ", initial_balance)
+    log("have w/starts   ", initial_with_starts)
+    log("cash out        ", cash_out)
+    log("cash in         ", cash_in)
+    log("final w/o starts", final_no_starts)
+    log("minimums        ", ending_minimums)
+    log("final w/starts  ", final_with_starts)
+    logger.info(f"starts: {starts.total}")
 
-    print()
-    print("starts:", starts.total)
-    print()
-
-    if args.trial_run:
-        print("Trial_run: Database not saved")
-    else:
-        print("Saving database")
-        save_database()
-
+    app.set_changed()
+    return step.mark_run(app)

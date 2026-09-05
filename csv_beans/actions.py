@@ -10,6 +10,7 @@ from tui_app.row_screen import row_screen
 from . import tables
 from .database import *
 from .cash_balance import cash_balance
+from .cash_swap import cash_swap
 
 
 logger = logging.getLogger('csv-beans.actions')
@@ -242,7 +243,7 @@ Step(509, Task5, cash_balance, 508)
 Step(510, Task5, stub, 509)
 
 # run cash swap
-Step(511, Task5, stub, 510)
+Step(511, Task5, cash_swap, 510)
 
 # exchange "cash out" for "Cash In"
 Step(512, Task5, stub, 511)

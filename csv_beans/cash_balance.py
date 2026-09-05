@@ -63,13 +63,13 @@ def cash_balance(step, app):
     # Give the user the results:
     logger.info("date      |account|detail    | coin| b1| b5|b10|b20|b50|b100|   total")
     buf = StringIO()
-    print(f"{eff_date:{Date_format}}|cash   |w/o starts", end='', file=buf)
-    balance_no_starts.print(file=buf)
-    logger.info(buf.getvalue())
-    buf.clear()
-    print(f"{eff_date:{Date_format}}|cash   |w/starts  ", end='', file=buf)
-    balance.print(file=buf)
-    logger.info(buf.getvalue())
+    def log(line_start, bills):
+        buf.clear()
+        buf.write(line_start)
+        bills.print(file=buf)
+        logger.info(buf.getvalue())
+    log(f"{eff_date:{Date_format}}|cash   |w/o starts", balance_no_starts)
+    log(f"{eff_date:{Date_format}}|cash   |w/starts  ", balance)
 
     app.set_changed()
     return step.mark_run(app)
