@@ -25,11 +25,7 @@ repository = "https://github.com/dangyogi/csv-beans.git"
 [project.scripts]
 beans-rows = "csv_beans.rows:run"
 beans-tables = "csv_beans.tables:run"
-#cash-balance = "csv_beans.cash_balance:run"
-#cash-swap = "csv_beans.cash_swap:run"
-#set-end-date = "csv_beans.set_end_date:run"
-#treasurer-report = "csv_beans.treasurer_report:run"
-#update-reconcile = "csv_beans.update_reconcile:run"
+treasurer-report = "csv_beans.treasurer_report:run"
 beans = "csv_beans.tui:run"
 
 [tool.setuptools.package-dir]

@@ -86,6 +86,25 @@ def create_month(step, app):
     return step.mark_run(app)
 
 
+def update_reconcile(step, app):
+    index = len(Reconcile) - 1
+    while index >= 0 and (Reconcile[index].account != "cash" or Reconcile[index].detail != "w/starts"):
+        index -= 1
+    if index < 0:
+        raise ValueError("cash_balance not found in Reconcile")
+    balance_date = Reconcile[index].date
+    for recon in Pending:
+        if recon.date < balance_date:
+            raise ValueError(f"Pending trans on {recon.date:{Date_format}} "
+                             f"before last cash balance on {balance_date:{Date_format}}")
+        Reconcile.insert(**{name: getattr(recon, name)
+                            for name in recon.stored_names
+                             if hasattr(recon, name) and getattr(recon, name) is not None})
+    Pending.clear()
+    app.set_changed()
+    return step.mark_run(app)
+
+
 # Task(id, *prereqs, column_break=False, can_rerun_after_commit=False)
 # Note(id, task)
 # Step(id, task, fn, *prereqs, ok_fn=None, can_rerun=False, can_rerun_after_commit=False,
@@ -104,7 +123,7 @@ Note(102, Task1)
 Note(103, Task1)
 
 # update reconcile
-Step(104, Task1, stub, 101, ok_fn=lambda: Pending)
+Step(104, Task1, update_reconcile, ok_fn=lambda: Pending)
 
 # run cash balance
 Step(105, Task1, cash_balance, 104)

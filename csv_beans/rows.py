@@ -214,7 +214,7 @@ class bills:
 class Starts(Row, bills):  # row first, so it's __init__ is used.
     # If columns are added or deleted, you'll need to redo Reconcile.columns!
     columns = (  # [0:9] are stored, [9:] are calculated
-        Column("account", required=True),
+        Column("account", required=True, selection_fn=lambda: list(Database.Accounts.keys())),
         Column("detail", required=True),
     ) + bills.columns + (
         Column("section", hidden=True, calculated=True),
