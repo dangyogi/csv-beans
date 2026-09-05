@@ -11,6 +11,7 @@ from . import tables
 from .database import *
 from .cash_balance import cash_balance
 from .cash_swap import cash_swap
+from .treasurer_report import treasurer_report
 
 
 logger = logging.getLogger('csv-beans.actions')
@@ -132,7 +133,7 @@ Step(105, Task1, cash_balance, 104)
 Step(106, Task1, stub, 105)
 
 # run treasurer report
-Step(107, Task1, stub, 106)
+Step(107, Task1, treasurer_report, 106)
 
 # print treasurer report
 Step(108, Task1, stub, 107)
@@ -271,7 +272,7 @@ Step(512, Task5, stub, 511)
 Step(513, Task5, stub, 512)
 
 # run treasurer report
-Step(514, Task1, stub, 513)
+Step(514, Task1, treasurer_report, 513)
 
 # print treasurer report
 Step(515, Task1, stub, 514)

@@ -1,6 +1,6 @@
 # treasurer_report.py
 
-from datetime import date, timedelta
+import logging
 from collections import defaultdict
 from itertools import groupby
 from operator import attrgetter
@@ -9,35 +9,15 @@ from .database import *
 from csv_app.report import *
 
 
-def run():
-    import argparse
+logger = logging.getLogger('csv-beans.treasurer_report')
 
-    today = date.today()
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--day", "-d", type=int, default=None)
-    parser.add_argument("--month", "-m", type=int, default=today.month)
-    parser.add_argument("--year", "-y", type=int, default=today.year)
-    parser.add_argument("--pdf", "-p", action="store_true", default=False)
+def _generate_report_data(cur_month, pdf=True, do_prints=False):
+    r'''Shared logic to generate treasurer report data.
 
-    args = parser.parse_args()
-
-    load_database()
-
-    year = args.year     # default today.year
-    if year < 2000:
-        year += 2000
-    month = args.month   # default today.month
-    if today.month < month:
-        year -= 1
-    day = args.day       # default None
-
-    print()
-    print("Current month", abbr_month(month), year)
-    cur_month = Months[year, month]
+    Returns: (report, prev_balance, final_balance, prev_month_str, as_of)
+    '''
     end_date = cur_month.end_date
-    if end_date is None and day is not None:
-        end_date = date(year, month, day)
 
     def find_final(end_date):
         r'''Find the final balance in the Reconcile table for end_date.
@@ -45,40 +25,22 @@ def run():
         Returns index, recon row.
         '''
         index = Reconcile.last_date(end_date)   # index just past end_date
-       #print(f"{end_date=}, {start_index=}")
+        index -= 1
         error_msg = f"{end_date.strftime('%b %d, %y')}, month end final balance not found in Reconcile"
-        recon = Reconcile[index - 1]
+        recon = Reconcile[index]
         if recon.account == 'cash' and recon.detail == 'w/starts':
-           #print("found final balance")
-            return index - 1, recon
-        raise AssertionError(error_msg)
+            return index, recon
+        raise ValueError(error_msg)
 
-    if end_date is not None:
-        final_index, final_balance = find_final(end_date)
+    final_index, final_balance = find_final(end_date)
+
+    as_of = f"as of {end_date.strftime(Date_format)}"
+
+    if do_prints:
+        print(as_of)
+        print()
     else:
-        final_index = len(Reconcile)
-        last_recon = Reconcile[-1]
-        if last_recon.account == 'cash' and last_recon.detail == 'w/starts':
-            final_balance = last_recon
-        else:
-            final_balance = None
-        end_date = Reconcile[-1].date
-
-    as_of = f"as of {end_date.strftime('%b %d, %y')}"
-    print(as_of)
-    print()
-
-    # print Treasurer's Report
-    set_canvas("T-Report")
-    report = Report(title=(Centered(span=5, size="title", bold=True),),
-                    l0=(Left(bold=True, span=4),           Right(text_format="{:.2f}")),
-                    l1=(Left(indent=1, bold=True, span=3), Right(text_format="{:.2f}", skip=1)),
-                    l2=(Left(indent=2, bold=True, span=2), Right(text_format="{:.2f}", skip=2)),
-                    l3=(Left(indent=3),                    Right(text_format="{:.2f}", skip=3)),
-                   )
-
-    report.new_row("title", "Treasurer's Report")
-    report.new_row("title", as_of, size=report.default_size)
+        logger.info(as_of)
 
     prev_end_date  = cur_month.start_date - timedelta(days=1)
     prev_index, prev_balance = find_final(prev_end_date)
@@ -181,15 +143,31 @@ def run():
             else:
                 accounts["donations"] += recon.donations
 
+    # Create the report
+    set_canvas("T-Report")
+    report = Report(title=(Centered(span=5, size="title", bold=True),),
+                    l0=(Left(bold=True, span=4),           Right(text_format="{:.2f}")),
+                    l1=(Left(indent=1, bold=True, span=3), Right(text_format="{:.2f}", skip=1)),
+                    l2=(Left(indent=2, bold=True, span=2), Right(text_format="{:.2f}", skip=2)),
+                    l3=(Left(indent=3),                    Right(text_format="{:.2f}", skip=3)),
+                   )
+
+    report.new_row("title", "Treasurer's Report")
+    report.new_row("title", as_of, size=report.default_size)
+
     picks["cash flow"].insert(report)
     picks["balance"].insert(report)
 
-    if args.pdf:
+    if pdf:
         width, height = report.draw_init()
         page_width, page_height = get_pagesize()
         width_copies = (page_width - 10) // (width + 10)
         height_copies = page_height // height
-        print(f"{page_width=}, {width=}, {width_copies=}; {page_height=}, {height=}, {height_copies=}")
+        info_line = f"{page_width=}, {width=}, {width_copies=}; {page_height=}, {height=}, {height_copies=}"
+        if do_prints:
+            print(info_line)
+        else:
+            logger.info(info_line)
        #report.draw(2, 0)
        #report.draw(2 + width + 12, 0)
         for y_offset in range(0, round(page_height) - round(height), round(height) + 28):
@@ -201,3 +179,41 @@ def run():
         report.print_init()
         report.print()
 
+
+def treasurer_report(step, app):
+    r'''Generates the treasurer's report as a PDF (like --pdf option) but without prints.
+    '''
+    cur_month = Months.last_month()
+
+    _generate_report_data(cur_month)
+
+    app.set_changed()
+    return step.mark_run(app)
+
+
+def run():
+    import argparse
+
+    last_month = Months.last_month()
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--month", "-m", type=int, default=last_month.month)
+    parser.add_argument("--year", "-y", type=int, default=last_month.year)
+    parser.add_argument("--pdf", "-p", action="store_true", default=False)
+
+    args = parser.parse_args()
+
+    load_database()
+
+    year = args.year     # default last_month.year
+    if year < 2000:
+        year += 2000
+    month = args.month   # default last_month.month
+    if month > cur_month.month:
+        year -= 1
+
+    print()
+    print("Current month", abbr_month(month), year)
+    cur_month = Months[year, month]
+
+    _generate_report_data(cur_month, pdf=args.pdf, do_prints=True)
