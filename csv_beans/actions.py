@@ -9,6 +9,7 @@ from tui_app.table_screen import table_screen
 from tui_app.row_screen import row_screen
 from . import tables
 from .database import *
+from .cash_balance import cash_balance
 
 
 logger = logging.getLogger('csv-beans.actions')
@@ -61,31 +62,28 @@ def last_month_update(global_validate=None):
                                    callback=lambda: step.mark_run(app))
 
 def create_month(step, app):
-    def year_is(year):                       # already an int (convert_fn=int)
-        def month_is(month):                 # already an int
-            if app.testing:
-                if not (1 <= month <= 12):
-                    raise ValueError(f"{month=} must be 1-12")
-            else:
-                if not (1 <= month <= 4 or 11 <= month <= 12):
-                    raise ValueError(f"{month=} must be 1-4 or 11-12")
-            logger.info(f"month_is: {month=}")
-            Months.insert(year=year, month=month, served_fudge=1.35, consumed_fudge=0.9)
-            app.set_changed()
-            return step.mark_run(app)
-        logger.info(f"year_is: {year=}")
-        today = date.today()
-        if not (today.year <= year <= today.year + 1):
-            raise ValueError(f"Invalid {year=}, must be between {today.year} and {today.year + 1}")
-        app.screen.ask_question("month", month_is, str(next_mth), convert_fn=int)
     last_month = Months.last_month()
-    yr, mth = last_month.year, last_month.month
-    if mth == 4:
-        next_yr, next_mth = yr, 11
+    
+    # Calculate start_date (1st of the month)
+    start_date = last_month.end_date + timedelta(days=1)
+
+    year, month = start_date.year, start_date.month
+    
+    # Calculate end_date
+    if month == 5:  # May is special - ends Oct 31
+        end_date = date(year, 10, 31)
     else:
-        next_yr, next_mth = Months.inc_month(yr, mth)
-    logger.info(f"create_month: {yr=}, {mth=}, {next_yr=}, {next_mth=}")
-    app.screen.ask_question("year", year_is, str(next_yr), convert_fn=int)
+        # Use Months.inc_month to get next month, then subtract 1 day
+        next_year, next_month = Months.inc_month(year, month)
+        first_of_next = date(next_year, next_month, 1)
+        end_date = first_of_next - timedelta(days=1)
+
+    logger.info(f"create_month: {year=}, {month=}, {start_date=}, {end_date=}")
+    
+    Months.insert(year=year, month=month, start_date=start_date, end_date=end_date)
+    app.set_changed()
+    return step.mark_run(app)
+
 
 # Task(id, *prereqs, column_break=False, can_rerun_after_commit=False)
 # Note(id, task)
@@ -96,7 +94,7 @@ def create_month(step, app):
 Task1 = Task(1, can_rerun_after_commit=True)
 
 # record petty cash as "petty cash"
-Step(101, Task1, stub, can_rerun=True)
+Step(101, Task1, table("Pending"), can_rerun=True)
 
 # other in: "donations", "revenue"(w/detail)
 Note(102, Task1)
@@ -105,10 +103,10 @@ Note(102, Task1)
 Note(103, Task1)
 
 # update reconcile
-Step(104, Task1, stub, 101)
+Step(104, Task1, stub, 101, ok_fn=lambda: Pending)
 
 # run cash balance
-Step(105, Task1, stub, 104)
+Step(105, Task1, cash_balance, 104)
 
 # count cash, compare to "cash w/starts"
 Step(106, Task1, stub, 105)
@@ -129,7 +127,7 @@ Step(110, Task1, stub, 109, commits_task=True)
 Task2 = Task(2, 1)
 
 # create new month
-Step(201, Task2, stub) #create_month)
+Step(201, Task2, create_month)
 
 # write start/end dates on New Month Folder
 Step(202, Task2, stub, 201)
@@ -162,7 +160,7 @@ Task3 = Task(3, 2, can_rerun_after_commit=True)
 Step(301, Task3, stub, 2, can_rerun=True)
 
 # record meeting dinner reimb as "meeting dinner"
-Step(302, Task3, stub, 301, can_rerun=True)
+Step(302, Task3, table("Pending"), 301, can_rerun=True)
 
 # place dinner receipt in new month folder
 Step(303, Task3, stub, 302, commits_task=True)
@@ -187,7 +185,7 @@ Step(404, Task4, stub, 402)
 Step(405, Task4, stub, 404)
 
 # record reimbs as "Sam's card", "bf supplies",
-Step(406, Task4, stub, 405)
+Step(406, Task4, table("Pending"), 405)
 
 # "expense, bf" (w/detail)
 Note(407, Task4)
@@ -226,7 +224,7 @@ Step(503, Task5, stub, 502)
 Step(504, Task5, stub, 503)
 
 # record breakfast revenue as "adv tickets",
-Step(505, Task5, stub, 504)
+Step(505, Task5, table("Pending"), 504)
 
 # "door tickets", "50/50" & "bf donations"
 Note(506, Task5)
@@ -238,7 +236,7 @@ Step(507, Task5, stub, 505)
 Step(508, Task5, stub, 505)
 
 # run cash balance
-Step(509, Task5, stub, 508)
+Step(509, Task5, cash_balance, 508)
 
 # count cash, compare to "cash w/starts"
 Step(510, Task5, stub, 509)
@@ -301,5 +299,3 @@ ExitStep(703, Task7, ok_fn=lambda: not get_app().changed)
 
 # abort
 ExitStep(704, Task7, abort=True, ok_fn=lambda: get_app().changed)
-
-

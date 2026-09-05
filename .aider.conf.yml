@@ -1,5 +1,5 @@
 # .aider.conf.yml
 
 read:
-    - ~/csv-app/csv_app/action.py
-    - ~/csv-app/csv_app/table.py
+    - ../csv-app/csv_app/action.py
+    - ../csv-app/csv_app/table.py

@@ -55,10 +55,14 @@ class Months(Row):
 
     @property
     def meeting_date(self):
+        if 5 <= self.month <= 10 and self.year >= 2026:
+            return None
         return self.nth_day(1, TUESDAY)
 
     @property
     def breakfast_date(self):
+        if 5 <= self.month <= 10 and self.year >= 2026:
+            return None
         return self.nth_day(2, SATURDAY)
 
     def nth_day(self, n, day):

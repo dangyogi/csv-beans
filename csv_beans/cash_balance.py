@@ -1,51 +1,49 @@
 # cash_balance.py
 
-r'''Appends to Reconcile table:
-
-   <today>|cash|w/o starts|...
-   <today>|cash|w/starts  |...
-'''
-
-import sys
+import logging
+from io import StringIO
 
 from .database import *
 
 
-def run():
-    import argparse
+logger = logging.getLogger('csv-beans.cash_balance')
 
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--trial-run", "-t", action="store_true", default=False)
+def cash_balance(step, app):
+    r'''Appends to Reconcile table:
 
-    args = parser.parse_args()
-
-    load_database()
-
+       <today>|cash|w/o starts|...
+       <today>|cash|w/starts  |...
+    '''
+    # Find the last "cash", "w/starts" entry in Reconcile
     for i, recon in enumerate(reversed(Reconcile)):
         if recon.account == 'cash' and recon.detail == 'w/starts':
             balance = recon.copy()
-            next = len(Reconcile) - i - 1
+            next_idx = len(Reconcile) - i - 1
             break
     else:
-        raise AssertionError('"cash", "w/start" not found in Reconcile')
+        raise ValueError('"cash", "w/starts" not found in Reconcile')
 
-    if next == len(Reconcile) - 1:
-        print("Reconcile already ends in cash_balance -- aborting")
-        return
+    if next_idx == len(Reconcile) - 1:
+        logger.info("Reconcile already ends in cash_balance -- nothing to do")
+        return step.mark_run(app)
 
-    for recon in Reconcile[next:]:
+    # Calculate balance from that point forward
+    for recon in Reconcile[next_idx:]:
         if recon.type == "Revenue":
             balance += recon
             if (recon.account, "start",) in Starts:
                 balance -= Starts[(recon.account, "start")]
         elif recon.type == "Expenses":
-            assert recon.donations == 0, \
-                   f"unexpected donations={recon.donations} on {recon.date:%b %d, %y}, {recon.account}, " \
-                   f"{recon.detail} expense"
+            if recon.donations != 0:
+                raise ValueError(f"unexpected donations={recon.donations} "
+                                 f"on {recon.date:{Date_format}}, "
+                                 f"{recon.account}, {recon.detail} expense")
             balance -= recon
         else:
-            assert recon.type in ("Bank", "Cash"), \
-                   f"Reconcile row {recon.date:%b %d, %y}, {recon.account} has unknown type {recon.type}"
+            if recon.type not in ("Bank", "Cash"):
+                raise ValueError(
+                   f"Reconcile row {recon.date:{Date_format}}, {recon.account} has unknown type {recon.type}"
+                )
 
     eff_date = recon.date
 
@@ -63,12 +61,15 @@ def run():
     Reconcile.insert(date=eff_date, account="cash", detail="w/starts", **balance.as_attrs())
 
     # Give the user the results:
-    print("date      |account|detail    | coin| b1| b5|b10|b20|b50|b100|   total")
-    print(f"{eff_date:%b %d, %y}|cash   |w/o starts", end='')
-    balance_no_starts.print(file=sys.stdout)
-    print(f"{eff_date:%b %d, %y}|cash   |w/starts  ", end='')
-    balance.print(file=sys.stdout)
+    logger.info("date      |account|detail    | coin| b1| b5|b10|b20|b50|b100|   total")
+    buf = StringIO()
+    print(f"{eff_date:{Date_format}}|cash   |w/o starts", end='', file=buf)
+    balance_no_starts.print(file=buf)
+    logger.info(buf.getvalue())
+    buf.clear()
+    print(f"{eff_date:{Date_format}}|cash   |w/starts  ", end='', file=buf)
+    balance.print(file=buf)
+    logger.info(buf.getvalue())
 
-    if not args.trial_run:
-        save_database()
-
+    app.set_changed()
+    return step.mark_run(app)
