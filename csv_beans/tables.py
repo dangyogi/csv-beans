@@ -70,25 +70,10 @@ class Months(Table_unique):
         except No_results:
             return None
 
-    def avg_num_at_meeting(self, month):
-        r'''Rounds answer to nearest integer.
-        '''
-        return self.avg(month, 'num_at_meeting')
-
-    def avg_staff_at_breakfast(self, month):
-        r'''Rounds answer to nearest integer.
-        '''
-        return self.avg(month, 'staff_at_breakfast')
-
     def avg_tickets_claimed(self, month):
         r'''Rounds answer to nearest integer.
         '''
         return self.avg(month, 'tickets_claimed')
-
-    def avg_meals_served(self, month):
-        r'''Rounds answer to nearest integer.
-        '''
-        return self.avg(month, 'meals_served')
 
 load_rows(Rows, Months)
 

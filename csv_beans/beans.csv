@@ -1,23 +1,23 @@
 Months
-month|year|start_date|end_date  |num_at_meeting|staff_at_breakfast|tickets_claimed
-    1|2024|          |          |              |                  |               
-    2|2024|          |          |              |                  |             99
-    3|2024|          |          |            21|                12|             70
-    4|2024|          |          |            12|                 9|             42
-   10|2024|          |          |              |                  |               
-   11|2024|          |          |             8|                11|             44
-   12|2024|          |          |             9|                11|             48
-    1|2025|          |          |            12|                13|             54
-    2|2025|          |          |            12|                10|             64
-    3|2025|          |          |             9|                10|             59
-    4|2025|          |          |             8|                11|             37
-   10|2025|          |          |             5|                  |               
-   11|2025|Nov 02, 25|Nov 28, 25|            14|                14|             61
-   12|2025|Nov 29, 25|Dec 31, 25|            13|                 8|             54
-    1|2026|Jan 01, 26|Jan 26, 26|            14|                12|             64
-    2|2026|Jan 27, 26|Feb 28, 26|            15|                13|             93
-    3|2026|Mar 01, 26|Apr 03, 26|            15|                13|             64
-    4|2026|Apr 04, 26|Apr 30, 26|             9|                 8|             36
+month|year|start_date|end_date  |tickets_claimed
+    1|2024|          |          |               
+    2|2024|          |          |             99
+    3|2024|          |          |             70
+    4|2024|          |          |             42
+   10|2024|          |          |               
+   11|2024|          |          |             44
+   12|2024|          |          |             48
+    1|2025|          |          |             54
+    2|2025|          |          |             64
+    3|2025|          |          |             59
+    4|2025|          |          |             37
+   10|2025|          |          |               
+   11|2025|Nov 02, 25|Nov 28, 25|             61
+   12|2025|Nov 29, 25|Dec 31, 25|             54
+    1|2026|Jan 01, 26|Jan 26, 26|             64
+    2|2026|Jan 27, 26|Feb 28, 26|             93
+    3|2026|Mar 01, 26|Apr 03, 26|             64
+    4|2026|Apr 04, 26|Apr 30, 26|             36
 
 Globals
 name             |int|decimal
@@ -194,71 +194,72 @@ Apr 14, 26|cash          |w/o starts          |4.66| 18| 6|  7| 13|  6|  29|    
 Apr 14, 26|cash          |w/starts            |4.66| 48|10| 11| 13|  6|  29|        0
 
 Steps
-id |number|name                 |state|last_run
-  1|1     |Before Member Meeting (if new transactions)|     |
-  2|2     |Create New Month Folder|   |
-  3|3     |Day After Member Meeting|  |
-  4|4     |Week Before Breakfast|     |
-  5|5     |Day After Breakfast|     |
-  6|6     |View/Edit Tables|     |
-  7|7     |Other|     |
-101|1.A   |Record Petty Cash as "petty cash"| |
-102|1.A.1 |other in: "donations", "revenue"(w/detail)| |
-103|1.A.2 |other out: "Xmas donation", "expense"(w/detail)| |
-104|1.B   |Update Reconcile| |
-105|1.C   |Run Cash Balance| |
-106|1.D   |Count Cash, compare to "cash w/starts"| |
-107|1.E   |Run Treasurer Report| |
-108|1.F   |Print Treasurer Report| |
-109|1.G   |Review Treasurer Report| |
-110|1.H   |Discard previous Treasurer Report| |
-201|2.A   |Create New Month| |
-202|2.B   |Write start/end dates on New Month Folder| |
-203|2.C   |Move Bylaws to New Month Folder| |
-204|2.D   |Make 4 copies of Treasurer Report| |
-205|2.D.1 |put 1 in old month, 3 in new month| |
-206|2.E   |File old month folder away| |
-207|2.F   |Place new Petty Cash Record in Month Folder| |
-208|2.G   |Print new Treasurer checklist| |
-209|2.G.1 |Place Treasurer checklist in Month Folder| |
-301|3.A   |Record meeting dinner reimb as "meeting dinner"| |
-302|3.B   |place dinner reimb receipt in Month Folder| |
-401|4.D   |Get receipts from shoppers| |
-402|4.E   |Compare receipts with P.O.s| |
-403|4.E.1 |note differences on P.O.| |
-404|4.F   |Issue reimbs with attached receipt and P.O.| |
-405|4.G   |Staple reimb receipt to P.O. and receipt| |
-406|4.H   |Record reimbs as "Sam's card", "bf supplies",| |
-407|4.H.1 |"expense, bf" (w/detail)| |
-408|4.I   |place stapled reimbs in Month Folder| |
-409|4.A   |Set aside door ticket sales, donation slip| |
-410|4.A.1 |20x1, 2x5, 2x10 = 50| |
-411|4.B   |Set aside 50/50 ticket sales, donation slip| |
-412|4.B.1 |10x1, 2x5, 2x10 = 40| |
-413|4.C   |Place calculator in briefcase| |
-501|5.A   |Remove calculator from briefcase| |
-502|5.C   |Record tickets claimed| |
-503|5.D   |Count revenue cash| |
-504|5.E   |Record breakfast revenue as "adv tickets",| |
-505|5.E.1 |"door tickets", "50/50" & "bf donations"| |
-506|5.F   |Place slips in Month Folder| |
-507|5.G   |Update Reconcile| |
-508|5.H   |Run cash balance| |
-509|5.I   |Count Cash, compare to "cash w/starts"| |
-510|5.M   |Run cash swap (inserts final cash balance)| |
-511|5.N   |Exchange "cash out" for "cash in"| |
-512|5.O   |Count cash, should match "cash w/starts"| |
-513|5.J   |Run Treasurer Report| |
-514|5.K   |Print Treasurer Report| |
-515|5.L   |Review Treasurer Report| |
-601|6.A   |Months| |
-602|6.B   |Globals| |
-603|6.C   |Accounts| |
-604|6.D   |Starts| |
-605|6.E   |Pending| |
-606|6.F   |Reconcile| |
-607|6.G   |Steps| |
-701|7.A   |Save database| |
-702|7.B   |git commit/push| |
-703|7.C   |Exit| |
-704|7.D   |Abort| |
+ id|number|name                                           |state|last_run
+  1|1     |Before Member Meeting (if new transactions)    |     |        
+  2|2     |Create New Month Folder                        |     |        
+  3|3     |Day After Member Meeting                       |     |        
+  4|4     |Week Before Breakfast                          |     |        
+  5|5     |Day After Breakfast                            |     |        
+  6|6     |View/Edit Tables                               |     |        
+  7|7     |Other                                          |     |        
+101|1.A   |Record Petty Cash as "petty cash"              |     |        
+102|1.A.1 |other in: "donations", "revenue"(w/detail)     |     |        
+103|1.A.2 |other out: "Xmas donation", "expense"(w/detail)|     |        
+104|1.B   |Update Reconcile                               |     |        
+105|1.C   |Run Cash Balance                               |     |        
+106|1.D   |Count Cash, compare to "cash w/starts"         |     |        
+107|1.E   |Run Treasurer Report                           |     |        
+108|1.F   |Print Treasurer Report                         |     |        
+109|1.G   |Review Treasurer Report                        |     |        
+110|1.H   |Discard previous Treasurer Report              |     |        
+201|2.A   |Create New Month                               |     |        
+202|2.B   |Write start/end dates on New Month Folder      |     |        
+203|2.C   |Move Bylaws to New Month Folder                |     |        
+204|2.D   |Make 4 copies of Treasurer Report              |     |        
+205|2.D.1 |put 1 in old month, 3 in new month             |     |        
+206|2.E   |File old month folder away                     |     |        
+207|2.F   |Place new Petty Cash Record in Month Folder    |     |        
+208|2.G   |Print new Treasurer checklist                  |     |        
+209|2.G.1 |Place Treasurer checklist in Month Folder      |     |        
+301|3.A   |Record meeting dinner reimb as "meeting dinner"|     |        
+302|3.B   |place dinner reimb receipt in Month Folder     |     |        
+401|4.D   |Get receipts from shoppers                     |     |        
+402|4.E   |Compare receipts with P.O.s                    |     |        
+403|4.E.1 |note differences on P.O.                       |     |        
+404|4.F   |Issue reimbs with attached receipt and P.O.    |     |        
+405|4.G   |Staple reimb receipt to P.O. and receipt       |     |        
+406|4.H   |Record reimbs as "Sam's card", "bf supplies",  |     |        
+407|4.H.1 |"expense, bf" (w/detail)                       |     |        
+408|4.I   |place stapled reimbs in Month Folder           |     |        
+409|4.A   |Set aside door ticket sales, donation slip     |     |        
+410|4.A.1 |20x1, 2x5, 2x10 = 50                           |     |        
+411|4.B   |Set aside 50/50 ticket sales, donation slip    |     |        
+412|4.B.1 |10x1, 2x5, 2x10 = 40                           |     |        
+413|4.C   |Place calculator in briefcase                  |     |        
+501|5.A   |Remove calculator from briefcase               |     |        
+502|5.C   |Record tickets claimed                         |     |        
+503|5.D   |Count revenue cash                             |     |        
+504|5.E   |Record breakfast revenue as "adv tickets",     |     |        
+505|5.E.1 |"door tickets", "50/50" & "bf donations"       |     |        
+506|5.F   |Place slips in Month Folder                    |     |        
+507|5.G   |Update Reconcile                               |     |        
+508|5.H   |Run cash balance                               |     |        
+509|5.I   |Count Cash, compare to "cash w/starts"         |     |        
+510|5.M   |Run cash swap (inserts final cash balance)     |     |        
+511|5.N   |Exchange "cash out" for "cash in"              |     |        
+512|5.O   |Count cash, should match "cash w/starts"       |     |        
+513|5.J   |Run Treasurer Report                           |     |        
+514|5.K   |Print Treasurer Report                         |     |        
+515|5.L   |Review Treasurer Report                        |     |        
+601|6.A   |Months                                         |     |        
+602|6.B   |Globals                                        |     |        
+603|6.C   |Accounts                                       |     |        
+604|6.D   |Starts                                         |     |        
+605|6.E   |Pending                                        |     |        
+606|6.F   |Reconcile                                      |     |        
+607|6.G   |Steps                                          |     |        
+701|7.A   |Save database                                  |     |        
+702|7.B   |git commit/push                                |     |        
+703|7.C   |Exit                                           |     |        
+704|7.D   |Abort                                          |     |        
+

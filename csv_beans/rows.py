@@ -19,11 +19,8 @@ class Months(Row):
         Column("year", parse=int, required=True),
         Date_column("start_date"),
         Date_column("end_date"),
-        Column("num_at_meeting", "#@mtg", parse=int),
-        Column("staff_at_breakfast", "stf@bf", parse=int),
         Column("tickets_claimed", "tkt_clm", parse=int),
         Column("month_str", "mth_str", calculated=True),
-        Column("meals_served", "ml_srv", parse=int, calculated=True),
         Date_column("meeting_date", "mtg_date", calculated=True),
         Date_column("breakfast_date", "bf_date", calculated=True),
     )
@@ -46,12 +43,6 @@ class Months(Row):
         if self.month == 1:
             return self.year - 1, 12
         return self.year, self.month - 1
-
-    @property
-    def meals_served(self):
-        if self.staff_at_breakfast is None or self.tickets_claimed is None:
-            return None
-        return self.staff_at_breakfast + self.tickets_claimed
 
     @property
     def meeting_date(self):
