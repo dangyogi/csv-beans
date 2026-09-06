@@ -28,6 +28,11 @@ def stub(step, app):
     app.set_changed()
     return step.mark_run(app)
 
+def final_reset(step, app):
+    logger.info(f"final_reset {step.name}")
+    app.set_changed()
+    return reset()
+
 def save(step, app):
     logger.info(f"save {step.name}")
     step.mark_run(app)    # sets app.changed, run this first so mark is saved
@@ -177,14 +182,11 @@ Note(209, Task2)
 # Day after member meeting
 Task3 = Task(3, 2, can_rerun_after_commit=True)
 
-# set meeting attendance
-Step(301, Task3, stub, 2, can_rerun=True)
-
 # record meeting dinner reimb as "meeting dinner"
-Step(302, Task3, table("Pending"), 301, can_rerun=True)
+Step(301, Task3, table("Pending"), 301, can_rerun=True)
 
 # place dinner receipt in new month folder
-Step(303, Task3, stub, 302, commits_task=True)
+Step(302, Task3, stub, 302, commits_task=True)
 
 
 # Week before breakfast
@@ -235,50 +237,47 @@ Task5 = Task(5, 4, column_break=True, can_rerun_after_commit=True)
 # remove calculator from briefcase
 Step(501, Task5, stub, 4)
 
-# record staff attendance
-Step(502, Task5, stub, 501)
-
 # record tickets claimed
-Step(503, Task5, stub, 502)
+Step(502, Task5, stub, 502)
 
 # count revenue cash
-Step(504, Task5, stub, 503)
+Step(503, Task5, stub, 503)
 
 # record breakfast revenue as "adv tickets",
-Step(505, Task5, table("Pending"), 504)
+Step(504, Task5, table("Pending"), 504)
 
 # "door tickets", "50/50" & "bf donations"
-Note(506, Task5)
+Note(505, Task5)
 
 # place slips in month folder
-Step(507, Task5, stub, 505)
+Step(506, Task5, stub, 505)
 
 # update Reconcile
-Step(508, Task5, stub, 505)
+Step(507, Task5, stub, 505)
 
 # run cash balance
-Step(509, Task5, cash_balance, 508)
+Step(508, Task5, cash_balance, 508)
 
 # count cash, compare to "cash w/starts"
-Step(510, Task5, stub, 509)
+Step(509, Task5, stub, 509)
 
 # run cash swap
-Step(511, Task5, cash_swap, 510)
+Step(510, Task5, cash_swap, 510)
 
 # exchange "cash out" for "Cash In"
-Step(512, Task5, stub, 511)
+Step(511, Task5, stub, 511)
 
 # count cash, should match "cash w/starts"
-Step(513, Task5, stub, 512)
+Step(512, Task5, stub, 512)
 
 # run treasurer report
-Step(514, Task1, treasurer_report, 513)
+Step(513, Task1, treasurer_report, 513)
 
 # print treasurer report
-Step(515, Task1, stub, 514)
+Step(514, Task1, stub, 514)
 
 # review treasurer report
-Step(516, Task1, stub, 515, commits_task=True)
+Step(515, Task1, final_reset, 515, commits_task=True)
 
 
 # view/edit tables

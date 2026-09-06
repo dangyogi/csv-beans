@@ -38,7 +38,7 @@ Mardi Gras    |Cash Flow|Other          |Revenue
 revenue       |Cash Flow|Other          |Revenue 
 donations     |Cash Flow|Other          |Revenue 
 meeting dinner|Cash Flow|Other          |Expenses
-xmas donation |Cash Flow|Other          |Expenses
+Xmas donation |Cash Flow|Other          |Expenses
 expense       |Cash Flow|Other          |Expenses
 petty cash    |Cash Flow|Other          |Expenses
 bank          |Balance  |Current Balance|Bank    
@@ -91,10 +91,10 @@ Dec 13, 25|adv tickets   |Bruce               |   0|  0| 3|  1|  0|  0|   0|    
 Dec 13, 25|adv tickets   |Marvin              |   0| 10| 4|  1|  1|  0|   0|       10
 Dec 13, 25|cash          |w/o starts          |2.10| 27| 8|  6| 12| 10|  20|        0
 Dec 13, 25|cash          |w/starts            |2.10| 67|16| 12| 12| 10|  20|        0
-Dec 18, 25|xmas donation |Liam                |   0|  0| 0|  0|  0|  0|   1|        0
-Dec 18, 25|xmas donation |Scott               |   0|  0| 0|  0|  0|  0|   1|        0
-Dec 18, 25|xmas donation |Janet               |   0|  0| 0|  0|  0|  0|   1|        0
-Dec 18, 25|xmas donation |Labor of Love       |   0|  0| 0|  0|  0|  0|   2|        0
+Dec 18, 25|Xmas donation |Liam                |   0|  0| 0|  0|  0|  0|   1|        0
+Dec 18, 25|Xmas donation |Scott               |   0|  0| 0|  0|  0|  0|   1|        0
+Dec 18, 25|Xmas donation |Janet               |   0|  0| 0|  0|  0|  0|   1|        0
+Dec 18, 25|Xmas donation |Labor of Love       |   0|  0| 0|  0|  0|  0|   2|        0
 Dec 19, 25|120 Club      |Semi-annual donation|0.18|  4| 2|  0| 16|  0|   2|        0
 Dec 19, 25|cash          |w/o starts          |2.28| 31|10|  6| 28| 10|  17|        0
 Dec 19, 25|cash          |w/starts            |2.28| 71|18| 12| 28| 10|  17|        0
@@ -221,9 +221,8 @@ id |number|name                 |state|last_run
 207|2.F   |Place new Petty Cash Record in Month Folder| |
 208|2.G   |Print new Treasurer checklist| |
 209|2.G.1 |Place Treasurer checklist in Month Folder| |
-301|3.A   |Set meeting attendance| |
-302|3.B   |Record meeting dinner reimb as "meeting dinner"| |
-303|3.C   |place dinner reimb receipt in Month Folder| |
+301|3.A   |Record meeting dinner reimb as "meeting dinner"| |
+302|3.B   |place dinner reimb receipt in Month Folder| |
 401|4.D   |Get receipts from shoppers| |
 402|4.E   |Compare receipts with P.O.s| |
 403|4.E.1 |note differences on P.O.| |
@@ -238,21 +237,20 @@ id |number|name                 |state|last_run
 412|4.B.1 |10x1, 2x5, 2x10 = 40| |
 413|4.C   |Place calculator in briefcase| |
 501|5.A   |Remove calculator from briefcase| |
-502|5.B   |Record staff attendance| |
-503|5.C   |Record tickets claimed| |
-504|5.D   |Count revenue cash| |
-505|5.E   |Record breakfast revenue as "adv tickets",| |
-506|5.E.1 |"door tickets", "50/50" & "bf donations"| |
-507|5.F   |Place slips in Month Folder| |
-508|5.G   |Update Reconcile| |
-509|5.H   |Run cash balance| |
-510|5.I   |Count Cash, compare to "cash w/starts"| |
-511|5.M   |Run cash swap (inserts final cash balance)| |
-512|5.N   |Exchange "cash out" for "cash in"| |
-513|5.O   |Count cash, should match "cash w/starts"| |
-514|5.J   |Run Treasurer Report| |
-515|5.K   |Print Treasurer Report| |
-516|5.L   |Review Treasurer Report| |
+502|5.C   |Record tickets claimed| |
+503|5.D   |Count revenue cash| |
+504|5.E   |Record breakfast revenue as "adv tickets",| |
+505|5.E.1 |"door tickets", "50/50" & "bf donations"| |
+506|5.F   |Place slips in Month Folder| |
+507|5.G   |Update Reconcile| |
+508|5.H   |Run cash balance| |
+509|5.I   |Count Cash, compare to "cash w/starts"| |
+510|5.M   |Run cash swap (inserts final cash balance)| |
+511|5.N   |Exchange "cash out" for "cash in"| |
+512|5.O   |Count cash, should match "cash w/starts"| |
+513|5.J   |Run Treasurer Report| |
+514|5.K   |Print Treasurer Report| |
+515|5.L   |Review Treasurer Report| |
 601|6.A   |Months| |
 602|6.B   |Globals| |
 603|6.C   |Accounts| |
