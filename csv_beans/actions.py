@@ -111,6 +111,20 @@ def update_reconcile(step, app):
     return step.mark_run(app)
 
 
+def record_tickets_claimed(step, app):
+    cur_month = Months.last_month()
+    def tickets_claimed_is(tickets_claimed):
+        if not (0 <= tickets_claimed <= 350):
+            raise ValueError(f"{tickets_claimed=} must be 0-350")
+        logger.info(f"record_tickets_claimed: {month.month_str}, "
+                    f"setting tickets claimed to {tickets_claimed}")
+        cur_month.tickets_claimed = tickets_claimed
+        app.set_changed()
+        return step.mark_run(app)
+    app.screen.ask_question("Tickets claimed", tickets_claimed_is, "", convert_fn=int)
+    return None
+
+
 # Task(id, *prereqs, column_break=False, can_rerun_after_commit=False)
 # Note(id, task)
 # Step(id, task, fn, *prereqs, ok_fn=None, can_rerun=False, can_rerun_after_commit=False,
@@ -238,7 +252,7 @@ Task5 = Task(5, 4, column_break=True, can_rerun_after_commit=True)
 Step(501, Task5, stub, 4)
 
 # record tickets claimed
-Step(502, Task5, stub, 502)
+Step(502, Task5, record_tickets_claimed, 502)
 
 # count revenue cash
 Step(503, Task5, stub, 503)
@@ -253,7 +267,7 @@ Note(505, Task5)
 Step(506, Task5, stub, 505)
 
 # update Reconcile
-Step(507, Task5, stub, 505)
+Step(507, Task5, update_reconcile, 505)
 
 # run cash balance
 Step(508, Task5, cash_balance, 508)
