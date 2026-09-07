@@ -80,4 +80,4 @@ load_rows(Rows, Months)
 
 __all__ = "Decimal date datetime timedelta abbr_month Date_format Datetime_format bills " \
           "Tables Database load_database save_database load_csv load_all clear_all check_foreign_keys " \
-          "CSV_dialect CSV_format".split()
+          "CSV_dialect CSV_format get_database_filename".split()

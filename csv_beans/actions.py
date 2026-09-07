@@ -1,5 +1,6 @@
 # actions.py
 
+from functools import partial
 import logging
 
 from csv_app.action import *
@@ -7,6 +8,7 @@ from csv_app.report import dump_table
 from tui_app.tui import get_app
 from tui_app.table_screen import table_screen
 from tui_app.row_screen import row_screen
+from tui_app.run_program import git_commit_push, print_file
 from . import tables
 from .database import *
 from .cash_balance import cash_balance
@@ -41,11 +43,19 @@ def save(step, app):
     app.reset_changed()
     return 'REFRESH'
 
-def print(table_name):
-    def print_table(step, app):
-        dump_table(table_name, pdf=True, load=False)
+def lp_file(filename):
+    def lp(step, app):
+        print_file("~/Documents/" + filename)
         return step.mark_run(app)
-    return print_table
+    return lp
+
+def git_commit(step, app):
+    def message_is(message):
+        git_commit_push(message, [get_database_filename()],
+                        partial(app.screen.show_message, attr=app.screen.default_pair))
+        return step.mark_run(app)
+    app.screen.ask_question("Commit message", message_is, "")
+    return None
 
 class ExitStep(Step):
     def __init__(self, id, task, abort=False, ok_fn=None):
@@ -143,22 +153,22 @@ Note(102, Task1)
 Note(103, Task1)
 
 # update reconcile
-Step(104, Task1, update_reconcile, ok_fn=lambda: Pending)
+Step(104, Task1, update_reconcile, 101, ok_fn=lambda: Pending, can_rerun=True)
 
 # run cash balance
-Step(105, Task1, cash_balance, 104)
+Step(105, Task1, cash_balance, 104, can_rerun=True)
 
 # count cash, compare to "cash w/starts"
-Step(106, Task1, stub, 105)
+Step(106, Task1, stub, 105, can_rerun=True)
 
 # run treasurer report
-Step(107, Task1, treasurer_report, 106)
+Step(107, Task1, treasurer_report, 106, can_rerun=True)
 
 # print treasurer report
-Step(108, Task1, stub, 107)
+Step(108, Task1, lp_file("T-report.pdf"), 107, can_rerun=True)
 
 # review treasurer report
-Step(109, Task1, stub, 108)
+Step(109, Task1, stub, 107, can_rerun=True)
 
 # discard previous treasurer report
 Step(110, Task1, stub, 109, commits_task=True)
@@ -176,7 +186,7 @@ Step(202, Task2, stub, 201)
 Step(203, Task2, stub, 202)
 
 # make 4 copies of treasurer's report
-Step(204, Task2, stub, 108, 202)
+Step(204, Task2, stub, 202)
 
 # put 1 in old month, 3 in new month
 Note(205, Task2)
@@ -197,17 +207,17 @@ Note(209, Task2)
 Task3 = Task(3, 2, can_rerun_after_commit=True)
 
 # record meeting dinner reimb as "meeting dinner"
-Step(301, Task3, table("Pending"), 301, can_rerun=True)
+Step(301, Task3, table("Pending"), 2, can_rerun=True)
 
 # place dinner receipt in new month folder
-Step(302, Task3, stub, 302, commits_task=True)
+Step(302, Task3, stub, 301, can_rerun=True, commits_task=True)
 
 
 # Week before breakfast
 Task4 = Task(4, 3, can_rerun_after_commit=True)
 
 # get receipts from shoppers
-Step(401, Task4, stub, 3, can_rerun=True)
+Step(401, Task4, stub, 2, can_rerun=True)
 
 # compare receipts with P.O.s
 Step(402, Task4, stub, 401)
@@ -222,7 +232,7 @@ Step(404, Task4, stub, 402)
 Step(405, Task4, stub, 404)
 
 # record reimbs as "Sam's card", "bf supplies",
-Step(406, Task4, table("Pending"), 405)
+Step(406, Task4, table("Pending"), 404)
 
 # "expense, bf" (w/detail)
 Note(407, Task4)
@@ -246,52 +256,52 @@ Note(412, Task4)
 Step(413, Task4, stub, 411, commits_task=True)
 
 # Day after breakfast
-Task5 = Task(5, 4, column_break=True, can_rerun_after_commit=True)
+Task5 = Task(5, 4, column_break=True)
 
 # remove calculator from briefcase
 Step(501, Task5, stub, 4)
 
 # record tickets claimed
-Step(502, Task5, record_tickets_claimed, 502)
+Step(502, Task5, record_tickets_claimed, 4, can_rerun=True)
 
 # count revenue cash
-Step(503, Task5, stub, 503)
+Step(503, Task5, stub, 502)
 
 # record breakfast revenue as "adv tickets",
-Step(504, Task5, table("Pending"), 504)
+Step(504, Task5, table("Pending"), 503)
 
 # "door tickets", "50/50" & "bf donations"
 Note(505, Task5)
 
 # place slips in month folder
-Step(506, Task5, stub, 505)
+Step(506, Task5, stub, 504)
 
 # update Reconcile
-Step(507, Task5, update_reconcile, 505)
+Step(507, Task5, update_reconcile, 504)
 
 # run cash balance
-Step(508, Task5, cash_balance, 508)
+Step(508, Task5, cash_balance, 507)
 
 # count cash, compare to "cash w/starts"
-Step(509, Task5, stub, 509)
+Step(509, Task5, stub, 508)
 
 # run cash swap
-Step(510, Task5, cash_swap, 510)
+Step(510, Task5, cash_swap, 509)
 
 # exchange "cash out" for "Cash In"
-Step(511, Task5, stub, 511)
+Step(511, Task5, stub, 510)
 
 # count cash, should match "cash w/starts"
-Step(512, Task5, stub, 512)
+Step(512, Task5, stub, 511)
 
 # run treasurer report
-Step(513, Task1, treasurer_report, 513)
+Step(513, Task1, treasurer_report, 512)
 
 # print treasurer report
-Step(514, Task1, stub, 514)
+Step(514, Task1, lp_file("T-report.pdf"), 513)
 
 # review treasurer report
-Step(515, Task1, final_reset, 515, commits_task=True)
+Step(515, Task1, final_reset, 514, commits_task=True)
 
 
 # view/edit tables
@@ -326,7 +336,7 @@ Task7 = Task(7)
 Step(701, Task7, save, ok_fn=lambda: get_app().changed, can_rerun=True)
 
 # git commit/push
-Step(702, Task7, stub, can_rerun=True)
+Step(702, Task7, git_commit, 701, ok_fn=lambda: not get_app().changed, can_rerun=True)
 
 # exit
 ExitStep(703, Task7, ok_fn=lambda: not get_app().changed)
