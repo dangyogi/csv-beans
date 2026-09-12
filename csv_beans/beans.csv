@@ -201,7 +201,8 @@ Steps
   4|4     |Week Before Breakfast                          |     |        
   5|5     |Day After Breakfast                            |     |        
   6|6     |View/Edit Tables                               |     |        
-  7|7     |Other                                          |     |        
+  7|7     |Print Forms                                    |     |        
+  8|8     |Other                                          |     |        
 101|1.A   |Record Petty Cash as "petty cash"              |     |        
 102|1.A.1 |other in: "donations", "revenue"(w/detail)     |     |        
 103|1.A.2 |other out: "Xmas donation", "expense"(w/detail)|     |        
@@ -258,8 +259,13 @@ Steps
 605|6.E   |Pending                                        |     |        
 606|6.F   |Reconcile                                      |     |        
 607|6.G   |Steps                                          |     |        
-701|7.A   |Save database                                  |     |        
-702|7.B   |git commit/push                                |     |        
-703|7.C   |Exit                                           |     |        
-704|7.D   |Abort                                          |     |        
+701|7.A   |Petty Cash Record                              |     |        
+702|7.B   |Door Ticket Sales                              |     |        
+703|7.C   |50/50 Ticket Sales                             |     |        
+704|7.D   |Donations                                      |     |        
+705|7.E   |Receipts                                       |     |        
+801|8.A   |Save database                                  |     |        
+802|8.B   |git commit/push                                |     |        
+803|8.C   |Exit                                           |     |        
+804|8.D   |Abort                                          |     |        
 

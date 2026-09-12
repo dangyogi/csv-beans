@@ -9,6 +9,7 @@ from tui_app.tui import get_app
 from tui_app.table_screen import table_screen
 from tui_app.row_screen import row_screen
 from tui_app.run_program import git_commit_push, print_file
+from tui_app.print_sheet import print_sheet
 from . import tables
 from .database import *
 from .cash_balance import cash_balance
@@ -48,6 +49,14 @@ def lp_file(filename):
         print_file("~/Documents/" + filename)
         return step.mark_run(app)
     return lp
+
+def print_form(sheet, copies=1, mark_run=False):
+    def print_form_step_fn(step, app):
+        print_sheet(sheet, copies)
+        if mark_run:
+            return step.mark_run(app)
+        return None
+    return print_form_step_fn
 
 def git_commit(step, app):
     def message_is(message):
@@ -198,7 +207,7 @@ Step(206, Task2, stub, 204)
 Step(207, Task2, stub, 202)
 
 # print new treasurer checklist
-Step(208, Task2, stub, 202, commits_task=True)
+Step(208, Task2, print_form("t_check_list", mark_run=True), 202, commits_task=True)
 
 # place treasurer checklist in month folder
 Note(209, Task2)
@@ -329,17 +338,36 @@ Step(606, Task6, table("Reconcile", mark_run=False), can_rerun=True)
 Step(607, Task6, table("Steps", mark_run=False), can_rerun=True)
 
 
-# other
+# print forms
 Task7 = Task(7)
 
+# petty cash record
+Step(701, Task7, print_form("petty_cash_record"), can_rerun=True)
+
+# door ticket sales
+Step(702, Task7, print_form("door_ticket_sales"), can_rerun=True)
+
+# 50/50 ticket sales
+Step(703, Task7, print_form("fifty_fifty"), can_rerun=True)
+
+# donations
+Step(704, Task7, print_form("donations"), can_rerun=True)
+
+# receipts
+Step(705, Task7, print_form("receipts"), can_rerun=True)
+
+
+# other
+Task8 = Task(8)
+
 # save database
-Step(701, Task7, save, ok_fn=lambda: get_app().changed, can_rerun=True)
+Step(801, Task7, save, ok_fn=lambda: get_app().changed, can_rerun=True)
 
 # git commit/push
-Step(702, Task7, git_commit, 701, ok_fn=lambda: not get_app().changed, can_rerun=True)
+Step(802, Task7, git_commit, 701, ok_fn=lambda: not get_app().changed, can_rerun=True)
 
 # exit
-ExitStep(703, Task7, ok_fn=lambda: not get_app().changed)
+ExitStep(803, Task7, ok_fn=lambda: not get_app().changed)
 
 # abort
-ExitStep(704, Task7, abort=True, ok_fn=lambda: get_app().changed)
+ExitStep(804, Task7, abort=True, ok_fn=lambda: get_app().changed)
