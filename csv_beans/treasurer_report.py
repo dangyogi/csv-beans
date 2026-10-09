@@ -203,7 +203,7 @@ def run():
 
     args = parser.parse_args()
 
-    load_database()
+    load_database(exclusive=False)
 
     year = args.year     # default last_month.year
     if year < 2000:

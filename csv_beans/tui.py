@@ -14,7 +14,7 @@ def run():
     parser.add_argument("--test", "-t", action="store_true", default=False)
     args = parser.parse_args()
 
-    database.load_database()
+    database.load_database(exclusive=not args.test)
     tui.start(database.Tables, menu_screen(action.Actions, title="Action Menu"), testing=args.test)
 
 

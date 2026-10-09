@@ -4,7 +4,7 @@ import math
 import logging
 
 from csv_app.row import *
-from csv_app.table import Database, set_database_filename
+from csv_app.load_save import Database, set_database_filename
 from csv_app.action import Steps
 from tui_app.table_screen import table_screen
 
