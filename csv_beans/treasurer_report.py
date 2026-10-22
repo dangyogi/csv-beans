@@ -116,7 +116,8 @@ def _generate_report_data(cur_month, pdf=True, do_prints=False):
     prev_bal += prev_balance.total
     if final_balance is not None:
         picks["cash"] += final_balance.total
-    picks["bf"].inc_text2_value(cur_month.tickets_claimed)
+    if cur_month.tickets_claimed is not None:
+        picks["bf"].inc_text2_value(cur_month.tickets_claimed)
 
     other_revenue = defaultdict(int)   # {account: total}
     other_expenses = defaultdict(int)  # {account: total}

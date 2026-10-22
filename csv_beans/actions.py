@@ -36,6 +36,10 @@ def final_reset(step, app):
     app.set_changed()
     return reset()
 
+def summer_reset(step, app):
+    if Months.last_month().month == 5:  # summer month, no breakfast or meetings
+        return final_reset(step, app)
+
 def save(step, app):
     logger.info(f"save {step.name}")
     step.mark_run(app)    # sets app.changed, run this first so mark is saved
@@ -174,7 +178,7 @@ Step(106, Task1, stub, 105, can_rerun=True)
 Step(107, Task1, treasurer_report, 106, can_rerun=True)
 
 # print treasurer report
-Step(108, Task1, lp_file("T-report.pdf"), 107, can_rerun=True)
+Step(108, Task1, lp_file("T-Report.pdf"), 107, can_rerun=True)
 
 # review treasurer report
 Step(109, Task1, stub, 107, can_rerun=True)
@@ -204,7 +208,7 @@ Note(205, Task2)
 Step(206, Task2, stub, 204)
 
 # place new petty cash record in month folder
-Step(207, Task2, stub, 202)
+Step(207, Task2, summer_reset, 202)
 
 # print new treasurer checklist
 Step(208, Task2, print_form("t_check_list", mark_run=True), 202, commits_task=True)
@@ -307,7 +311,7 @@ Step(512, Task5, stub, 511)
 Step(513, Task1, treasurer_report, 512)
 
 # print treasurer report
-Step(514, Task1, lp_file("T-report.pdf"), 513)
+Step(514, Task1, lp_file("T-Report.pdf"), 513)
 
 # review treasurer report
 Step(515, Task1, final_reset, 514, commits_task=True)

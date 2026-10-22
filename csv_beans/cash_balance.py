@@ -62,9 +62,8 @@ def cash_balance(step, app):
 
     # Give the user the results:
     logger.info("date      |account|detail    | coin| b1| b5|b10|b20|b50|b100|   total")
-    buf = StringIO()
     def log(line_start, bills):
-        buf.clear()
+        buf = StringIO()
         buf.write(line_start)
         bills.print(file=buf)
         logger.info(buf.getvalue())
