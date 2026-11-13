@@ -232,50 +232,51 @@ Step(302, Task3, stub, 301, can_rerun=True, commits_task=True)
 # Week before breakfast
 Task4 = Task(4, 3, can_rerun_after_commit=True)
 
-# get receipts from shoppers
-Step(401, Task4, stub, 2, can_rerun=True)
-
-# compare receipts with P.O.s
-Step(402, Task4, stub, 401)
-
-# note differences on P.O.
-Note(403, Task4)
-
-# issue reimbs with attached receipt and P.O.
-Step(404, Task4, stub, 402)
-
-# staple reimb receipt to P.O. and receipt
-Step(405, Task4, stub, 404)
-
-# record reimbs as "Sam's card", "bf supplies",
-Step(406, Task4, table("Pending"), 404)
-
-# "expense, bf" (w/detail)
-Note(407, Task4)
-
-# place stapled reimbs in month folder
-Step(408, Task4, stub, 406)
-
 # set aside door ticket sales slip, donation slip
-Step(409, Task4, stub, 408)
+Step(401, Task4, stub, 2)
 
 # 20x1, 2x5, 2x10 = 50
-Note(410, Task4)
+Note(402, Task4)
 
 # set aside 50/50 ticket sales slip, donation slip
-Step(411, Task4, stub, 409)
+Step(403, Task4, stub, 401)
 
 # 10x1, 2x5, 2x10 = 40
-Note(412, Task4)
+Note(404, Task4)
 
 # place calculator in briefcase
+Step(405, Task4, stub, 403)
+
+# get receipts from shoppers
+Step(406, Task4, stub, 2, can_rerun=True)
+
+# compare receipts with P.O.s
+Step(407, Task4, stub, 406)
+
+# note differences on P.O.
+Note(408, Task4)
+
+# issue reimbs with attached receipt and P.O.
+Step(409, Task4, stub, 407)
+
+# staple reimb receipt to P.O. and receipt
+Step(410, Task4, stub, 409)
+
+# record reimbs as "Sam's card", "bf supplies",
+Step(411, Task4, table("Pending"), 410)
+
+# "expense, bf" (w/detail)
+Note(412, Task4)
+
+# place stapled reimbs in month folder
 Step(413, Task4, stub, 411, commits_task=True)
+
 
 # Day after breakfast
 Task5 = Task(5, 4, column_break=True)
 
 # remove calculator from briefcase
-Step(501, Task5, stub, 4)
+Step(501, Task5, stub, 405)
 
 # record tickets claimed
 Step(502, Task5, record_tickets_claimed, 4, can_rerun=True)

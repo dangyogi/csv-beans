@@ -229,34 +229,34 @@ Steps
 209|2.G.1 |Place Treasurer checklist in Month Folder      |not-run  |                   
 301|3.A   |Record meeting dinner reimb as "meeting dinner"|not-run  |                   
 302|3.B   |place dinner reimb receipt in Month Folder     |not-run  |                   
-401|4.D   |Get receipts from shoppers                     |not-run  |                   
-402|4.E   |Compare receipts with P.O.s                    |not-run  |                   
-403|4.E.1 |note differences on P.O.                       |not-run  |                   
-404|4.F   |Issue reimbs with attached receipt and P.O.    |not-run  |                   
-405|4.G   |Staple reimb receipt to P.O. and receipt       |not-run  |                   
-406|4.H   |Record reimbs as "Sam's card", "bf supplies",  |not-run  |                   
-407|4.H.1 |"expense, bf" (w/detail)                       |not-run  |                   
-408|4.I   |place stapled reimbs in Month Folder           |not-run  |                   
-409|4.A   |Set aside door ticket sales, donation slip     |not-run  |                   
-410|4.A.1 |20x1, 2x5, 2x10 = 50                           |not-run  |                   
-411|4.B   |Set aside 50/50 ticket sales, donation slip    |not-run  |                   
-412|4.B.1 |10x1, 2x5, 2x10 = 40                           |not-run  |                   
-413|4.C   |Place calculator in briefcase                  |not-run  |                   
+401|4.A   |Set aside door ticket sales, donation slip     |run      |03:36PM, Nov 13, 26
+402|4.A.1 |20x1, 2x5, 2x10 = 50                           |not-run  |                   
+403|4.B   |Set aside 50/50 ticket sales, donation slip    |run      |03:44PM, Nov 13, 26
+404|4.B.1 |10x1, 2x5, 2x10 = 40                           |not-run  |                   
+405|4.C   |Place calculator in briefcase                  |run      |03:46PM, Nov 13, 26
+406|4.D   |Get receipts from shoppers                     |not-run  |                   
+407|4.E   |Compare receipts with P.O.s                    |not-run  |                   
+408|4.E.1 |note differences on P.O.                       |not-run  |                   
+409|4.F   |Issue reimbs with attached receipt and P.O.    |not-run  |                   
+410|4.G   |Staple reimb receipt to P.O. and receipt       |not-run  |                   
+411|4.H   |Record reimbs as "Sam's card", "bf supplies",  |not-run  |                   
+412|4.H.1 |"expense, bf" (w/detail)                       |not-run  |                   
+413|4.I   |place stapled reimbs in Month Folder           |not-run  |                   
 501|5.A   |Remove calculator from briefcase               |not-run  |                   
-502|5.C   |Record tickets claimed                         |not-run  |                   
-503|5.D   |Count revenue cash                             |not-run  |                   
-504|5.E   |Record breakfast revenue as "adv tickets",     |not-run  |                   
-505|5.E.1 |"door tickets", "50/50" & "bf donations"       |not-run  |                   
-506|5.F   |Place slips in Month Folder                    |not-run  |                   
-507|5.G   |Update Reconcile                               |not-run  |                   
-508|5.H   |Run cash balance                               |not-run  |                   
-509|5.I   |Count Cash, compare to "cash w/starts"         |not-run  |                   
-510|5.M   |Run cash swap (inserts final cash balance)     |not-run  |                   
-511|5.N   |Exchange "cash out" for "cash in"              |not-run  |                   
-512|5.O   |Count cash, should match "cash w/starts"       |not-run  |                   
-513|5.J   |Run Treasurer Report                           |not-run  |                   
-514|5.K   |Print Treasurer Report                         |not-run  |                   
-515|5.L   |Review Treasurer Report                        |not-run  |                   
+502|5.B   |Record tickets claimed                         |not-run  |                   
+503|5.C   |Count revenue cash                             |not-run  |                   
+504|5.D   |Record breakfast revenue as "adv tickets",     |not-run  |                   
+505|5.D.1 |"door tickets", "50/50" & "bf donations"       |not-run  |                   
+506|5.E   |Place slips in Month Folder                    |not-run  |                   
+507|5.F   |Update Reconcile                               |not-run  |                   
+508|5.G   |Run cash balance                               |not-run  |                   
+509|5.H   |Count Cash, compare to "cash w/starts"         |not-run  |                   
+510|5.I   |Run cash swap (inserts final cash balance)     |not-run  |                   
+511|5.J   |Exchange "cash out" for "cash in"              |not-run  |                   
+512|5.K   |Count cash, should match "cash w/starts"       |not-run  |                   
+513|5.L   |Run Treasurer Report                           |not-run  |                   
+514|5.M   |Print Treasurer Report                         |not-run  |                   
+515|5.N   |Review Treasurer Report                        |not-run  |                   
 601|6.A   |Months                                         |not-run  |                   
 602|6.B   |Globals                                        |not-run  |                   
 603|6.C   |Accounts                                       |not-run  |                   
@@ -269,7 +269,7 @@ Steps
 703|7.C   |50/50 Ticket Sales                             |not-run  |                   
 704|7.D   |Donations                                      |not-run  |                   
 705|7.E   |Receipts                                       |not-run  |                   
-801|8.A   |Save database                                  |rerun    |02:50PM, Oct 22, 26
+801|8.A   |Save database                                  |rerun    |03:47PM, Nov 13, 26
 802|8.B   |git commit/push                                |not-run  |                   
 803|8.C   |Exit                                           |not-run  |                   
 804|8.D   |Abort                                          |not-run  |                   
