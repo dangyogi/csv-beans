@@ -37,8 +37,11 @@ def final_reset(step, app):
     return reset()
 
 def summer_reset(step, app):
-    if Months.last_month().month == 5:  # summer month, no breakfast or meetings
+    cur_month = Months.last_month().month
+    logger.info(f"summer_reset {step.name} {cur_month=}")
+    if cur_month == 5:  # summer month, no breakfast or meetings
         return final_reset(step, app)
+    return stub(step, app)
 
 def save(step, app):
     logger.info(f"save {step.name}")

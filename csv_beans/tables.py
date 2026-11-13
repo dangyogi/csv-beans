@@ -34,19 +34,7 @@ class Months(Table_unique):
     def last_month(self):
         r'''Returns the row for the last month in the table.
         '''
-        today = date.today()
-        year = today.year
-        month = today.month
-        if (year, month) in self:
-            year2, month2 = self.inc_month(year, month)
-            while (year2, month2) in self:
-                year, month = year2, month2
-                year2, month2 = self.inc_month(year, month)
-            return self[year, month]
-        year, month = self.dec_month(year, month)
-        while (year, month) not in self:
-            year, month = self.dec_month(year, month)
-        return self[year, month]
+        return self[max(self.keys())]
 
     def attr_by_month(self, month, attr):
         r'''Generates all non-None attr values with this month.
