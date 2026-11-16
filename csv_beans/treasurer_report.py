@@ -196,23 +196,26 @@ def treasurer_report(step, app):
 def run():
     import argparse
 
-    last_month = Months.last_month()
-
     parser = argparse.ArgumentParser()
-    parser.add_argument("--month", "-m", type=int, default=last_month.month)
-    parser.add_argument("--year", "-y", type=int, default=last_month.year)
+    parser.add_argument("--month", "-m", type=int, help="default: the last month in Months")
+    parser.add_argument("--year", "-y", type=int,
+                        help="default: the last month's year, or the year before if --month is later")
     parser.add_argument("--pdf", "-p", action="store_true", default=False)
 
     args = parser.parse_args()
 
-    load_database(exclusive=False)
+    load_database(exclusive=False)     # before Months.last_month() -- Months is empty until loaded
+    last_month = Months.last_month()
 
-    year = args.year     # default last_month.year
-    if year < 2000:
-        year += 2000
-    month = args.month   # default last_month.month
-    if month > cur_month.month:
-        year -= 1
+    month = args.month if args.month is not None else last_month.month
+    if args.year is None:
+        year = last_month.year
+        if month > last_month.month:   # e.g. --month 11 when the last month is Jan
+            year -= 1
+    else:
+        year = args.year
+        if year < 2000:
+            year += 2000
 
     print()
     print("Current month", abbr_month(month), year)

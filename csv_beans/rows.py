@@ -236,7 +236,7 @@ class Pending(Starts):
     ) + Starts.columns[2:9] + (  # rest of Starts stored columns
         Column("donations", "don", parse=decimal, default=0),
     ) + Starts.columns[9:]       # Starts calculated columns
-    primary_keys = ()
+    primary_keys = None          # override Starts' primary_keys: no key (rows are by date)
 
     @property
     def total(self):
