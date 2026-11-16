@@ -2,6 +2,7 @@
 
 from functools import partial
 import logging
+import os
 
 from csv_app.action import *
 from csv_app.report import dump_table
@@ -67,8 +68,10 @@ def print_form(sheet, copies=1, mark_run=False):
 
 def git_commit(step, app):
     def message_is(message):
-        git_commit_push(message, [get_database_filename()],
-                        partial(app.screen.show_message, attr=app.screen.default_pair))
+        db_filename = get_database_filename()
+        git_commit_push(message, [db_filename],
+                        partial(app.screen.show_message, attr=app.screen.default_pair),
+                        cwd=os.path.dirname(db_filename))   # git runs in the database's repo
         return step.mark_run(app)
     app.screen.ask_question("Commit message", message_is, "")
     return None

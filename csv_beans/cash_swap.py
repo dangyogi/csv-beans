@@ -120,9 +120,8 @@ def cash_swap(step, app):
 
     # Give the user the results:
     logger.info("                | coin| b1| b5|b10|b20|b50|b100|   total")
-    buf = StringIO()
     def log(line_start, bills):
-        buf.clear()
+        buf = StringIO()                # StringIO has no clear(), so use a fresh one per line
         buf.write(line_start)
         bills.print(file=buf)
         logger.info(buf.getvalue())
