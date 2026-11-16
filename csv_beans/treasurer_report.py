@@ -5,6 +5,7 @@ from collections import defaultdict
 from itertools import groupby
 from operator import attrgetter
 
+from csv_app.action import ActionFailed
 from .database import *
 from csv_app.report import *
 
@@ -30,7 +31,7 @@ def _generate_report_data(cur_month, pdf=True, do_prints=False):
         recon = Reconcile[index]
         if recon.account == 'cash' and recon.detail == 'w/starts':
             return index, recon
-        raise ValueError(error_msg)
+        raise ActionFailed(error_msg)
 
     final_index, final_balance = find_final(end_date)
 

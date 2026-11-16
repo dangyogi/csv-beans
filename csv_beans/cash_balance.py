@@ -3,6 +3,7 @@
 import logging
 from io import StringIO
 
+from csv_app.action import ActionFailed
 from .database import *
 
 
@@ -21,7 +22,7 @@ def cash_balance(step, app):
             next_idx = len(Reconcile) - i - 1
             break
     else:
-        raise ValueError('"cash", "w/starts" not found in Reconcile')
+        raise ActionFailed('"cash", "w/starts" not found in Reconcile')
 
     if next_idx == len(Reconcile) - 1:
         logger.info("Reconcile already ends in cash_balance -- nothing to do")
@@ -35,13 +36,13 @@ def cash_balance(step, app):
                 balance -= Starts[(recon.account, "start")]
         elif recon.type == "Expenses":
             if recon.donations != 0:
-                raise ValueError(f"unexpected donations={recon.donations} "
+                raise ActionFailed(f"unexpected donations={recon.donations} "
                                  f"on {recon.date:{Date_format}}, "
                                  f"{recon.account}, {recon.detail} expense")
             balance -= recon
         else:
             if recon.type not in ("Bank", "Cash"):
-                raise ValueError(
+                raise ActionFailed(
                    f"Reconcile row {recon.date:{Date_format}}, {recon.account} has unknown type {recon.type}"
                 )
 

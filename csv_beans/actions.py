@@ -123,12 +123,13 @@ def update_reconcile(step, app):
     while index >= 0 and (Reconcile[index].account != "cash" or Reconcile[index].detail != "w/starts"):
         index -= 1
     if index < 0:
-        raise ValueError("cash_balance not found in Reconcile")
+        raise ActionFailed("cash_balance not found in Reconcile")
     balance_date = Reconcile[index].date
-    for recon in Pending:
+    for recon in Pending:              # check them all before inserting any
         if recon.date < balance_date:
-            raise ValueError(f"Pending trans on {recon.date:{Date_format}} "
-                             f"before last cash balance on {balance_date:{Date_format}}")
+            raise ActionFailed(f"Pending trans on {recon.date:{Date_format}} "
+                               f"before last cash balance on {balance_date:{Date_format}}")
+    for recon in Pending:
         Reconcile.insert(**{name: getattr(recon, name)
                             for name in recon.stored_names
                              if hasattr(recon, name) and getattr(recon, name) is not None})
@@ -312,13 +313,13 @@ Step(511, Task5, stub, 510)
 Step(512, Task5, stub, 511)
 
 # run treasurer report
-Step(513, Task1, treasurer_report, 512)
+Step(513, Task5, treasurer_report, 512)
 
 # print treasurer report
-Step(514, Task1, lp_file("T-Report.pdf"), 513)
+Step(514, Task5, lp_file("T-Report.pdf"), 513)
 
 # review treasurer report
-Step(515, Task1, final_reset, 514, commits_task=True)
+Step(515, Task5, final_reset, 514, commits_task=True)
 
 
 # view/edit tables
@@ -369,13 +370,13 @@ Step(705, Task7, print_form("receipts"), can_rerun=True)
 Task8 = Task(8)
 
 # save database
-Step(801, Task7, save, ok_fn=lambda: get_app().changed, can_rerun=True)
+Step(801, Task8, save, ok_fn=lambda: get_app().changed, can_rerun=True)
 
 # git commit/push
-Step(802, Task7, git_commit, 701, ok_fn=lambda: not get_app().changed, can_rerun=True)
+Step(802, Task8, git_commit, 801, ok_fn=lambda: not get_app().changed, can_rerun=True)
 
 # exit
-ExitStep(803, Task7, ok_fn=lambda: not get_app().changed)
+ExitStep(803, Task8, ok_fn=lambda: not get_app().changed)
 
 # abort
-ExitStep(804, Task7, abort=True, ok_fn=lambda: get_app().changed)
+ExitStep(804, Task8, abort=True, ok_fn=lambda: get_app().changed)

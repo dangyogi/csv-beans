@@ -4,6 +4,7 @@ import logging
 from io import StringIO
 import math
 
+from csv_app.action import ActionFailed
 from .database import *
 
 
@@ -22,9 +23,9 @@ def cash_swap(step, app):
 
     last_recon = Reconcile[-1]
     if last_recon.account != "cash":
-        raise ValueError(f'Last Reconcile account must be "cash", not "{last_recon.account}"')
+        raise ActionFailed(f'Last Reconcile account must be "cash", not "{last_recon.account}"')
     if last_recon.detail != "w/starts":
-        raise ValueError(f'Last Reconcile detail must be "w/starts", not "{last_recon.detail}"')
+        raise ActionFailed(f'Last Reconcile detail must be "w/starts", not "{last_recon.detail}"')
     initial_with_starts = last_recon.copy()
 
     # Figure out the cash exchange:
@@ -57,7 +58,7 @@ def cash_swap(step, app):
                 next_key = attrs[i2]
             ratio = bills.value(next_key) / bills.value(key)
             if not ratio.is_integer():
-                raise ValueError(f"expected integer ratio, got {ratio=}")
+                raise ActionFailed(f"expected integer ratio, got {ratio=}")
             ratio = int(ratio)
             transfer = math.ceil((minimum_value - target_value) / ratio)
             cash_out.add_to_attr(next_key, transfer)
@@ -76,7 +77,7 @@ def cash_swap(step, app):
                 next_key = attrs[i2]
             ratio = bills.value(next_key) / bills.value(key)
             if not ratio.is_integer():
-                raise ValueError(f"expected integer ratio, got {ratio=}")
+                raise ActionFailed(f"expected integer ratio, got {ratio=}")
             ratio = int(ratio)
             transfer = math.floor((target_value - minimum_value) / ratio)
             cash_out.add_to_attr(key, ratio * transfer)
@@ -102,18 +103,17 @@ def cash_swap(step, app):
             setattr(cash_out, bill, 0)
 
     if cash_in.total != cash_out.total:
-        raise ValueError(f"{cash_in.total=} != {cash_out.total=}")
+        raise ActionFailed(f"{cash_in.total=} != {cash_out.total=}")
 
     # OK, now we have the calculated cash_out and cash_in!
 
-    Reconcile.insert(date=today, account="cash", detail="cash out", **cash_out.as_attrs())
-    Reconcile.insert(date=today, account="cash", detail="cash in", **cash_in.as_attrs())
-
-    # Figure out what our final_balance is:
+    # Figure out what our final_balance is (checked before inserting anything into Reconcile):
     final_no_starts = initial_balance - cash_out + cash_in
     if initial_balance.total != final_no_starts.total:
-        raise ValueError(f"{initial_balance.total=} != {final_no_starts.total=}")
+        raise ActionFailed(f"{initial_balance.total=} != {final_no_starts.total=}")
 
+    Reconcile.insert(date=today, account="cash", detail="cash out", **cash_out.as_attrs())
+    Reconcile.insert(date=today, account="cash", detail="cash in", **cash_in.as_attrs())
     Reconcile.insert(date=today, account="cash", detail="w/o starts", **final_no_starts.as_attrs())
     final_with_starts = final_no_starts + starts
     Reconcile.insert(date=today, account="cash", detail="w/starts", **final_with_starts.as_attrs())
