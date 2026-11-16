@@ -142,7 +142,7 @@ def record_tickets_claimed(step, app):
     def tickets_claimed_is(tickets_claimed):
         if not (0 <= tickets_claimed <= 350):
             raise ValueError(f"{tickets_claimed=} must be 0-350")
-        logger.info(f"record_tickets_claimed: {month.month_str}, "
+        logger.info(f"record_tickets_claimed: {cur_month.month_str}, "
                     f"setting tickets claimed to {tickets_claimed}")
         cur_month.tickets_claimed = tickets_claimed
         app.set_changed()
