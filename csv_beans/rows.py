@@ -67,7 +67,7 @@ class Globals(Row):
     columns = (
         Column("name", required=True),   # e.g., "meeting dinner", "breakfast"
         Column("int", parse=int),
-        Column("decimal", parse=Decimal),
+        Column("decimal", parse=decimal),
     )
     primary_key = "name"
 
@@ -94,14 +94,14 @@ class Accounts(Row):
 class bills:
     # If columns are added or deleted, you'll need to redo Starts.columns comment and Reconcile.columns!
     columns = (  # [0:7] are stored, [7] is calculated
-        Column("coin", parse=Decimal, default=0),
+        Column("coin", parse=decimal, default=0),
         Column("b1", parse=int, default=0),
         Column("b5", parse=int, default=0),
         Column("b10", parse=int, default=0),
         Column("b20", parse=int, default=0),
         Column("b50", parse=int, default=0),
         Column("b100", parse=int, default=0),
-        Column("total", parse=Decimal, calculated=True),
+        Column("total", parse=decimal, calculated=True),
     )
 
     @property
@@ -234,7 +234,7 @@ class Pending(Starts):
     ) + Starts.columns[0:1] + (  # account column
         Column("detail"), # detail without required=True
     ) + Starts.columns[2:9] + (  # rest of Starts stored columns
-        Column("donations", "don", parse=Decimal, default=0),
+        Column("donations", "don", parse=decimal, default=0),
     ) + Starts.columns[9:]       # Starts calculated columns
     primary_keys = ()
 
@@ -273,7 +273,7 @@ Rows = (Months, Globals, Accounts, Starts, Pending, Reconcile, Steps,
        )
 
 
-__all__ = "Decimal date datetime timedelta abbr_month bills Rows".split()
+__all__ = "Decimal decimal date datetime timedelta abbr_month bills Rows".split()
 
 
 def run():
