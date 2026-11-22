@@ -19,7 +19,7 @@ month|year|start_date|end_date  |tickets_claimed
     3|2026|Mar 01, 26|Apr 03, 26|             64
     4|2026|Apr 04, 26|Apr 30, 26|             36
     5|2026|May 01, 26|Oct 31, 26|               
-   11|2026|Nov 01, 26|Nov 30, 26|               
+   11|2026|Nov 01, 26|Nov 30, 26|             65
 
 Globals
 name             |int|decimal
@@ -58,152 +58,169 @@ Pending
 date|account|detail|coin|b1|b5|b10|b20|b50|b100|donations
 
 Reconcile
-date      |account       |detail              |coin| b1|b5|b10|b20|b50|b100|donations
-Nov 01, 25|cash          |w/starts            |4.81| 44|13| 16| 12| 10|  18|        0
-Nov 03, 25|Sam's card    |Bruce, Sam's Card   |   0|  0| 3|  0|  0|  0|   0|        0
-Nov 04, 25|meeting dinner|Bruce, pizza        | 0.5|  2| 0|  4|  0|  0|   0|        0
-Nov 04, 25|meeting dinner|Bruce, beer         |0.25| 22| 0|  0|  0|  0|   0|        0
-Nov 05, 25|adv tickets   |Steve & David       |   1|  4| 1|  4|  5|  0|   0|        0
-Nov 05, 25|adv tickets   |Henry               |   0| 20| 0|  0|  0|  0|   0|        0
-Nov 05, 25|adv tickets   |Abe & Harvey        |   0|  0| 1|  3|  4|  0|   0|        0
-Nov 05, 25|adv tickets   |Jim                 |   0|  0| 4|  1|  0|  0|   0|        0
-Nov 05, 25|adv tickets   |Marvin              |   0|  0| 9|  0|  0|  0|   0|        0
-Nov 08, 25|door tickets  |End                 |   0| 13| 2|  4|  2|  0|   0|        0
-Nov 08, 25|50/50         |End                 |   0|  9|11|  1|  1|  0|   0|        0
-Nov 08, 25|bf supplies   |Bruce, cups         |   0|  0| 5|  0|  0|  0|   0|        0
-Nov 08, 25|bf supplies   |Marvin, Sam's       |0.52|  2| 1|  0|  1|  0|   1|        0
-Nov 08, 25|bf supplies   |Walmart & Gordons   |0.15|  0| 1|  0|  1|  0|   0|        0
-Nov 08, 25|bf supplies   |David, Plates       | 0.2|  4| 1|  1|  0|  0|   0|        0
-Nov 08, 25|bf supplies   |Steve, Orange Juice |   0|  4| 0|  1|  0|  0|   0|        0
-Nov 28, 25|cash          |w/starts            |4.19| 26|26| 19| 22| 10|  17|        0
-Nov 28, 25|cash out      |                    |   0|  0|14|  3| 16|  0|   0|        0
-Nov 28, 25|cash in       |                    |   0| 20| 0|  0|  0|  0|   4|        0
-Nov 28, 25|cash          |w/starts            |4.19| 46|12| 16|  6| 10|  21|        0
-Dec 11, 25|meeting dinner|Bruce, pizza        |   0|  0| 1|  5|  0|  0|   0|        0
-Dec 11, 25|meeting dinner|Bruce, soda&toppings|1.50|  3| 2|  2|  0|  0|   0|        0
-Dec 11, 25|bf supplies   |Ernie, P.O. 25121W  |   0|  3| 1|  0|  2|  0|   0|        0
-Dec 11, 25|bf supplies   |Marvin, P.O. 25121S |0.59|  0| 0|  0|  3|  0|   1|        0
-Dec 11, 25|cash          |w/o starts          |2.10|  0| 0|  3|  1| 10|  20|        0
-Dec 11, 25|cash          |w/starts            |2.10| 40| 8|  9|  1| 10|  20|        0
-Dec 13, 25|door tickets  |end                 |   0| 26| 1|  1|  3|  0|   0|        3
-Dec 13, 25|50/50         |end                 |   0| 16| 2|  1|  2|  0|   0|        0
-Dec 13, 25|adv tickets   |Steven              |   0|  0| 1|  3|  3|  0|   0|        0
-Dec 13, 25|adv tickets   |Ernie               |   0|  5| 1|  0|  2|  0|   0|        0
-Dec 13, 25|adv tickets   |Bruce               |   0|  0| 3|  1|  0|  0|   0|        0
-Dec 13, 25|adv tickets   |Marvin              |   0| 10| 4|  1|  1|  0|   0|       10
-Dec 13, 25|cash          |w/o starts          |2.10| 27| 8|  6| 12| 10|  20|        0
-Dec 13, 25|cash          |w/starts            |2.10| 67|16| 12| 12| 10|  20|        0
-Dec 18, 25|Xmas donation |Liam                |   0|  0| 0|  0|  0|  0|   1|        0
-Dec 18, 25|Xmas donation |Scott               |   0|  0| 0|  0|  0|  0|   1|        0
-Dec 18, 25|Xmas donation |Janet               |   0|  0| 0|  0|  0|  0|   1|        0
-Dec 18, 25|Xmas donation |Labor of Love       |   0|  0| 0|  0|  0|  0|   2|        0
-Dec 19, 25|120 Club      |Semi-annual donation|0.18|  4| 2|  0| 16|  0|   2|        0
-Dec 19, 25|cash          |w/o starts          |2.28| 31|10|  6| 28| 10|  17|        0
-Dec 19, 25|cash          |w/starts            |2.28| 71|18| 12| 28| 10|  17|        0
-Dec 19, 25|cash          |cash out            |   0| 12| 4|  0| 16|  3|   0|        0
-Dec 19, 25|cash          |cash in             |   2|  0| 0|  0|  0|  0|   5|        0
-Dec 19, 25|cash          |w/o starts          |4.28| 19| 6|  6| 12|  7|  22|        0
-Dec 19, 25|cash          |w/starts            |4.28| 59|14| 12| 12|  7|  22|        0
-Jan 06, 26|petty cash    |duplicate keys      |0.10|  2| 0|  1|  1|  0|   0|        0
-Jan 08, 26|meeting dinner|purchased by Tom    |   0|  2| 0|  1|  1|  0|   0|        0
-Jan 10, 26|door tickets  |end                 |   0|  4| 4|  4|  5|  0|   0|        0
-Jan 10, 26|adv tickets   |Marvin              |   0|  0| 1|  0|  1|  1|   0|        0
-Jan 10, 26|adv tickets   |Paul                |   0|  0| 0|  0|  0|  1|   0|        0
-Jan 10, 26|adv tickets   |Mark                |   0|  0| 2|  0|  3|  0|   0|        0
-Jan 10, 26|adv tickets   |Tom                 |   0| 30| 0|  0|  0|  0|   0|        0
-Jan 10, 26|adv tickets   |Steven              |   0|  0| 0|  0|  1|  0|   0|        0
-Jan 10, 26|adv tickets   |Bruce               |   0|  5| 1|  2|  0|  0|   0|        0
-Jan 10, 26|50/50         |end                 |   0| 47| 5|  3|  0|  0|   0|        0
-Jan 10, 26|bf supplies   |Bruce, Walmart order|0.17|  1| 0|  2|  0|  1|   1|        0
-Jan 12, 26|bf supplies   |Marvin, P.O. 26011S |0.55|  2| 0|  0|  2|  0|   1|        0
-Jan 12, 26|cash          |w/o starts          |3.46| 78|19|  9| 18|  8|  20|        0
-Jan 12, 26|cash          |w/starts            |3.46|108|23| 13| 18|  8|  20|        0
-Jan 13, 26|bf supplies   |Bruce, 12 aprons    |0.15|  4| 0|  0|  3|  0|   0|        0
-Jan 13, 26|cash          |w/o starts          |3.31| 74|19|  9| 15|  8|  20|        0
-Jan 13, 26|cash          |w/starts            |3.31|104|23| 13| 15|  8|  20|        0
-Jan 13, 26|donations     |anonymous           |   0|  0| 0|  0|  0|  1|   0|        0
-Jan 13, 26|cash          |w/o starts          |3.31| 74|19|  9| 15|  9|  20|        0
-Jan 13, 26|cash          |w/starts            |3.31|104|23| 13| 15|  9|  20|        0
-Jan 13, 26|cash          |cash out            |   0| 56|13|  2|  3|  2|   0|        0
-Jan 13, 26|cash          |cash in             |   1|  0| 0|  0|  0|  0|   3|        0
-Jan 13, 26|cash          |w/o starts          |4.31| 18| 6|  7| 12|  7|  23|        0
-Jan 13, 26|cash          |w/starts            |4.31| 48|10| 11| 12|  7|  23|        0
-Jan 15, 26|expense       |Mardi-Gras donation |   0|  0| 0|  0|  0|  0|   2|        0
-Jan 15, 26|cash          |w/o starts          |4.31| 18| 6|  7| 12|  7|  21|        0
-Jan 15, 26|cash          |w/starts            |4.31| 48|10| 11| 12|  7|  21|        0
-Feb 03, 26|bf supplies   |Steven, PO 26011S   |0.36|  1| 1|  0|  2|  1|   0|        0
-Feb 03, 26|bf supplies   |Steven, PO 26011G   |   0|  0| 0|  0|  1|  0|   0|        0
-Feb 03, 26|petty cash    |Signs               |0.70|  4| 1|  1|  0|  0|   0|        0
-Feb 14, 26|expense, bf   |Donuts              |   0|  0| 0|  0|  1|  0|   1|        0
-Feb 14, 26|door tickets  |end                 |   0|  5| 3|  1|  6|  1|   0|       20
-Feb 14, 26|50/50         |                    |   0| 31| 5|  3|  1|  0|   0|        0
-Feb 14, 26|adv tickets   |Steven              |   0|  0| 0|  0|  0|  1|   0|        0
-Feb 14, 26|adv tickets   |Tom                 |   0|  0| 1|  1|  2|  0|   0|        0
-Feb 14, 26|adv tickets   |Marvin              |   0|  0| 0|  1|  2|  0|   0|        0
-Feb 14, 26|adv tickets   |David               |   0|  0| 0|  3|  5|  0|   0|        0
-Feb 14, 26|adv tickets   |Bruce               |   0|  5| 2|  0|  0|  0|   0|        0
-Feb 14, 26|adv tickets   |Mark                |   0|  0| 0|  1|  2|  0|   0|        0
-Feb 17, 26|bf supplies   |Ernie, PO 26021W    |   0|  4| 1|  0|  1|  0|   0|        0
-Feb 17, 26|cash          |w/o starts          |3.25| 20|10| 12| 25|  8|  20|        0
-Feb 17, 26|cash          |w/starts            |3.25| 50|14| 16| 25|  8|  20|        0
-Feb 20, 26|cash          |cash out            |   0|  1| 4|  6| 11|  2|   0|        0
-Feb 20, 26|cash          |cash in             |   1|  0| 0|  0|  0|  0|   4|        0
-Feb 20, 26|cash          |w/o starts          |4.25| 19| 6|  6| 14|  6|  24|        0
-Feb 20, 26|cash          |w/starts            |4.25| 49|10| 10| 14|  6|  24|        0
-Feb 27, 26|Mardi Gras    |50/50 income        |   0|  0| 0|  0|  6|  0|   0|        0
-Feb 28, 26|donations     |unaccounted $5      |   0|  0| 1|  0|  0|  0|   0|        0
-Feb 28, 26|cash          |w/o starts          |4.25| 19| 7|  6| 20|  6|  24|        0
-Feb 28, 26|cash          |w/starts            |4.25| 49|11| 10| 20|  6|  24|        0
-Mar 14, 26|adv tickets   |David               |   0|  5| 3|  0|  2|  0|   0|        0
-Mar 14, 26|adv tickets   |Mark                |   0|  0| 1|  0|  2|  0|   0|        0
-Mar 14, 26|adv tickets   |Paul                |   0|  0| 1|  0|  0|  0|   0|        0
-Mar 14, 26|adv tickets   |Tom                 |   0|  0| 8|  0|  0|  0|   0|        0
-Mar 14, 26|adv tickets   |Marvin              |   0| 15| 2|  0|  1|  0|   0|        0
-Mar 14, 26|adv tickets   |Harvey              |   0|  0| 2|  0|  2|  0|   0|        0
-Mar 14, 26|door tickets  |end w/start         |   0| 11| 8|  4|  3|  0|   0|        0
-Mar 14, 26|50/50         |end w/start         |   0| 21| 1|  1|  3|  0|   0|        0
-Mar 15, 26|bf supplies   |Steven, P.O. 26031S |0.50|  4| 0|  0|  2|  1|   0|        0
-Mar 15, 26|cash          |w/o starts          |3.75| 37|29|  7| 31|  5|  24|        0
-Mar 15, 26|cash          |w/starts            |3.75| 67|33| 11| 31|  5|  24|        0
-Apr 03, 26|adv tickets   |Paul                |   0|  0| 0|  0|  1|  0|   0|        0
-Apr 03, 26|120 Club      |Game 50 50/50       |   0|  9| 0|  0|  3|  0|   0|        0
-Apr 03, 26|120 Club      |Game 50 donation    |0.54|  1| 0|  0|  1|  0|   3|        0
-Apr 03, 26|cash          |w/o starts          |4.29| 47|29|  7| 36|  5|  27|        0
-Apr 03, 26|cash          |w/starts            |4.29| 77|33| 11| 36|  5|  27|        0
-Apr 04, 26|cash          |cash out            |   0| 30|22|  0| 23|  0|   0|        0
-Apr 04, 26|cash          |cash in             |   0|  0| 0|  0|  0|  2|   5|        0
-Apr 04, 26|cash          |w/o starts          |4.29| 17| 7|  7| 13|  7|  32|        0
-Apr 04, 26|cash          |w/starts            |4.29| 47|11| 11| 13|  7|  32|        0
-Apr 08, 26|expense       |Bruce, purch 3 books|0.10|  0| 0|  1|  1|  1|   0|        0
-Apr 09, 26|meeting dinner|Steven, Millers     |0.34|  4| 0|  0|  2|  0|   2|        0
-Apr 10, 26|bf supplies   |Steven, PO 260415   |0.20|  0| 1|  1|  1|  0|   0|        0
-Apr 10, 26|expense       |Steven, M/F utensils|0.25|  1| 1|  1|  1|  0|   0|        0
-Apr 11, 26|adv tickets   |Steven              |   0|  5| 0|  0|  1|  0|   0|        0
-Apr 11, 26|adv tickets   |Mark P              |   0|  0| 1|  1|  1|  0|   0|        0
-Apr 11, 26|adv tickets   |Tom                 |   0|  0| 6|  0|  0|  0|   0|        0
-Apr 11, 26|adv tickets   |Marvin              |   0|  0| 0| -1|  2|  0|   0|        0
-Apr 11, 26|adv tickets   |Bruce               |   0|  0| 0|  1|  0|  0|   0|        0
-Apr 11, 26|door tickets  |w/start             |   0| 11| 8|  1|  3|  0|   0|        0
-Apr 11, 26|50/50         |w/start             |   0| 18| 6|  3|  0|  0|   0|        0
-Apr 12, 26|revenue       |M/F 50/50 income    |1.00| 32|12|  4|  0|  0|   0|        0
-Apr 12, 26|expense       |Marvin, M/F PoFolks |0.35|  2| 0|  1|  0|  0|   4|        0
-Apr 13, 26|revenue       |M/F settlement      |0.61|  2| 0|  2|  3|  0|   0|        0
-Apr 13, 26|cash          |w/o starts          |4.66| 48|34| 10| 18|  6|  26|        0
-Apr 13, 26|cash          |w/starts            |4.66| 78|38| 14| 18|  6|  26|        0
-Apr 14, 26|cash          |cash out            |   0| 30|28|  3|  5|  0|   0|        0
-Apr 14, 26|cash          |cash in             |   0|  0| 0|  0|  0|  0|   3|        0
-Apr 14, 26|cash          |w/o starts          |4.66| 18| 6|  7| 13|  6|  29|        0
-Apr 14, 26|cash          |w/starts            |4.66| 48|10| 11| 13|  6|  29|        0
-Jun 01, 26|expense       |July 4 party        |   0|  0| 0|  0|  0|  0|   1|        0
-Jun 01, 26|cash          |w/o starts          |4.66| 18| 6|  7| 13|  6|  28|        0
-Jun 01, 26|cash          |w/starts            |4.66| 48|10| 11| 13|  6|  28|        0
+date      |account       |detail                  |coin| b1|b5|b10|b20|b50|b100|donations
+Nov 01, 25|cash          |w/starts                |4.81| 44|13| 16| 12| 10|  18|        0
+Nov 03, 25|Sam's card    |Bruce, Sam's Card       |   0|  0| 3|  0|  0|  0|   0|        0
+Nov 04, 25|meeting dinner|Bruce, pizza            | 0.5|  2| 0|  4|  0|  0|   0|        0
+Nov 04, 25|meeting dinner|Bruce, beer             |0.25| 22| 0|  0|  0|  0|   0|        0
+Nov 05, 25|adv tickets   |Steve & David           |   1|  4| 1|  4|  5|  0|   0|        0
+Nov 05, 25|adv tickets   |Henry                   |   0| 20| 0|  0|  0|  0|   0|        0
+Nov 05, 25|adv tickets   |Abe & Harvey            |   0|  0| 1|  3|  4|  0|   0|        0
+Nov 05, 25|adv tickets   |Jim                     |   0|  0| 4|  1|  0|  0|   0|        0
+Nov 05, 25|adv tickets   |Marvin                  |   0|  0| 9|  0|  0|  0|   0|        0
+Nov 08, 25|door tickets  |End                     |   0| 13| 2|  4|  2|  0|   0|        0
+Nov 08, 25|50/50         |End                     |   0|  9|11|  1|  1|  0|   0|        0
+Nov 08, 25|bf supplies   |Bruce, cups             |   0|  0| 5|  0|  0|  0|   0|        0
+Nov 08, 25|bf supplies   |Marvin, Sam's           |0.52|  2| 1|  0|  1|  0|   1|        0
+Nov 08, 25|bf supplies   |Walmart & Gordons       |0.15|  0| 1|  0|  1|  0|   0|        0
+Nov 08, 25|bf supplies   |David, Plates           | 0.2|  4| 1|  1|  0|  0|   0|        0
+Nov 08, 25|bf supplies   |Steve, Orange Juice     |   0|  4| 0|  1|  0|  0|   0|        0
+Nov 28, 25|cash          |w/starts                |4.19| 26|26| 19| 22| 10|  17|        0
+Nov 28, 25|cash out      |                        |   0|  0|14|  3| 16|  0|   0|        0
+Nov 28, 25|cash in       |                        |   0| 20| 0|  0|  0|  0|   4|        0
+Nov 28, 25|cash          |w/starts                |4.19| 46|12| 16|  6| 10|  21|        0
+Dec 11, 25|meeting dinner|Bruce, pizza            |   0|  0| 1|  5|  0|  0|   0|        0
+Dec 11, 25|meeting dinner|Bruce, soda&toppings    |1.50|  3| 2|  2|  0|  0|   0|        0
+Dec 11, 25|bf supplies   |Ernie, P.O. 25121W      |   0|  3| 1|  0|  2|  0|   0|        0
+Dec 11, 25|bf supplies   |Marvin, P.O. 25121S     |0.59|  0| 0|  0|  3|  0|   1|        0
+Dec 11, 25|cash          |w/o starts              |2.10|  0| 0|  3|  1| 10|  20|        0
+Dec 11, 25|cash          |w/starts                |2.10| 40| 8|  9|  1| 10|  20|        0
+Dec 13, 25|door tickets  |end                     |   0| 26| 1|  1|  3|  0|   0|        3
+Dec 13, 25|50/50         |end                     |   0| 16| 2|  1|  2|  0|   0|        0
+Dec 13, 25|adv tickets   |Steven                  |   0|  0| 1|  3|  3|  0|   0|        0
+Dec 13, 25|adv tickets   |Ernie                   |   0|  5| 1|  0|  2|  0|   0|        0
+Dec 13, 25|adv tickets   |Bruce                   |   0|  0| 3|  1|  0|  0|   0|        0
+Dec 13, 25|adv tickets   |Marvin                  |   0| 10| 4|  1|  1|  0|   0|       10
+Dec 13, 25|cash          |w/o starts              |2.10| 27| 8|  6| 12| 10|  20|        0
+Dec 13, 25|cash          |w/starts                |2.10| 67|16| 12| 12| 10|  20|        0
+Dec 18, 25|Xmas donation |Liam                    |   0|  0| 0|  0|  0|  0|   1|        0
+Dec 18, 25|Xmas donation |Scott                   |   0|  0| 0|  0|  0|  0|   1|        0
+Dec 18, 25|Xmas donation |Janet                   |   0|  0| 0|  0|  0|  0|   1|        0
+Dec 18, 25|Xmas donation |Labor of Love           |   0|  0| 0|  0|  0|  0|   2|        0
+Dec 19, 25|120 Club      |Semi-annual donation    |0.18|  4| 2|  0| 16|  0|   2|        0
+Dec 19, 25|cash          |w/o starts              |2.28| 31|10|  6| 28| 10|  17|        0
+Dec 19, 25|cash          |w/starts                |2.28| 71|18| 12| 28| 10|  17|        0
+Dec 19, 25|cash          |cash out                |   0| 12| 4|  0| 16|  3|   0|        0
+Dec 19, 25|cash          |cash in                 |   2|  0| 0|  0|  0|  0|   5|        0
+Dec 19, 25|cash          |w/o starts              |4.28| 19| 6|  6| 12|  7|  22|        0
+Dec 19, 25|cash          |w/starts                |4.28| 59|14| 12| 12|  7|  22|        0
+Jan 06, 26|petty cash    |duplicate keys          |0.10|  2| 0|  1|  1|  0|   0|        0
+Jan 08, 26|meeting dinner|purchased by Tom        |   0|  2| 0|  1|  1|  0|   0|        0
+Jan 10, 26|door tickets  |end                     |   0|  4| 4|  4|  5|  0|   0|        0
+Jan 10, 26|adv tickets   |Marvin                  |   0|  0| 1|  0|  1|  1|   0|        0
+Jan 10, 26|adv tickets   |Paul                    |   0|  0| 0|  0|  0|  1|   0|        0
+Jan 10, 26|adv tickets   |Mark                    |   0|  0| 2|  0|  3|  0|   0|        0
+Jan 10, 26|adv tickets   |Tom                     |   0| 30| 0|  0|  0|  0|   0|        0
+Jan 10, 26|adv tickets   |Steven                  |   0|  0| 0|  0|  1|  0|   0|        0
+Jan 10, 26|adv tickets   |Bruce                   |   0|  5| 1|  2|  0|  0|   0|        0
+Jan 10, 26|50/50         |end                     |   0| 47| 5|  3|  0|  0|   0|        0
+Jan 10, 26|bf supplies   |Bruce, Walmart order    |0.17|  1| 0|  2|  0|  1|   1|        0
+Jan 12, 26|bf supplies   |Marvin, P.O. 26011S     |0.55|  2| 0|  0|  2|  0|   1|        0
+Jan 12, 26|cash          |w/o starts              |3.46| 78|19|  9| 18|  8|  20|        0
+Jan 12, 26|cash          |w/starts                |3.46|108|23| 13| 18|  8|  20|        0
+Jan 13, 26|bf supplies   |Bruce, 12 aprons        |0.15|  4| 0|  0|  3|  0|   0|        0
+Jan 13, 26|cash          |w/o starts              |3.31| 74|19|  9| 15|  8|  20|        0
+Jan 13, 26|cash          |w/starts                |3.31|104|23| 13| 15|  8|  20|        0
+Jan 13, 26|donations     |anonymous               |   0|  0| 0|  0|  0|  1|   0|        0
+Jan 13, 26|cash          |w/o starts              |3.31| 74|19|  9| 15|  9|  20|        0
+Jan 13, 26|cash          |w/starts                |3.31|104|23| 13| 15|  9|  20|        0
+Jan 13, 26|cash          |cash out                |   0| 56|13|  2|  3|  2|   0|        0
+Jan 13, 26|cash          |cash in                 |   1|  0| 0|  0|  0|  0|   3|        0
+Jan 13, 26|cash          |w/o starts              |4.31| 18| 6|  7| 12|  7|  23|        0
+Jan 13, 26|cash          |w/starts                |4.31| 48|10| 11| 12|  7|  23|        0
+Jan 15, 26|expense       |Mardi-Gras donation     |   0|  0| 0|  0|  0|  0|   2|        0
+Jan 15, 26|cash          |w/o starts              |4.31| 18| 6|  7| 12|  7|  21|        0
+Jan 15, 26|cash          |w/starts                |4.31| 48|10| 11| 12|  7|  21|        0
+Feb 03, 26|bf supplies   |Steven, PO 26011S       |0.36|  1| 1|  0|  2|  1|   0|        0
+Feb 03, 26|bf supplies   |Steven, PO 26011G       |   0|  0| 0|  0|  1|  0|   0|        0
+Feb 03, 26|petty cash    |Signs                   |0.70|  4| 1|  1|  0|  0|   0|        0
+Feb 14, 26|expense, bf   |Donuts                  |   0|  0| 0|  0|  1|  0|   1|        0
+Feb 14, 26|door tickets  |end                     |   0|  5| 3|  1|  6|  1|   0|       20
+Feb 14, 26|50/50         |                        |   0| 31| 5|  3|  1|  0|   0|        0
+Feb 14, 26|adv tickets   |Steven                  |   0|  0| 0|  0|  0|  1|   0|        0
+Feb 14, 26|adv tickets   |Tom                     |   0|  0| 1|  1|  2|  0|   0|        0
+Feb 14, 26|adv tickets   |Marvin                  |   0|  0| 0|  1|  2|  0|   0|        0
+Feb 14, 26|adv tickets   |David                   |   0|  0| 0|  3|  5|  0|   0|        0
+Feb 14, 26|adv tickets   |Bruce                   |   0|  5| 2|  0|  0|  0|   0|        0
+Feb 14, 26|adv tickets   |Mark                    |   0|  0| 0|  1|  2|  0|   0|        0
+Feb 17, 26|bf supplies   |Ernie, PO 26021W        |   0|  4| 1|  0|  1|  0|   0|        0
+Feb 17, 26|cash          |w/o starts              |3.25| 20|10| 12| 25|  8|  20|        0
+Feb 17, 26|cash          |w/starts                |3.25| 50|14| 16| 25|  8|  20|        0
+Feb 20, 26|cash          |cash out                |   0|  1| 4|  6| 11|  2|   0|        0
+Feb 20, 26|cash          |cash in                 |   1|  0| 0|  0|  0|  0|   4|        0
+Feb 20, 26|cash          |w/o starts              |4.25| 19| 6|  6| 14|  6|  24|        0
+Feb 20, 26|cash          |w/starts                |4.25| 49|10| 10| 14|  6|  24|        0
+Feb 27, 26|Mardi Gras    |50/50 income            |   0|  0| 0|  0|  6|  0|   0|        0
+Feb 28, 26|donations     |unaccounted $5          |   0|  0| 1|  0|  0|  0|   0|        0
+Feb 28, 26|cash          |w/o starts              |4.25| 19| 7|  6| 20|  6|  24|        0
+Feb 28, 26|cash          |w/starts                |4.25| 49|11| 10| 20|  6|  24|        0
+Mar 14, 26|adv tickets   |David                   |   0|  5| 3|  0|  2|  0|   0|        0
+Mar 14, 26|adv tickets   |Mark                    |   0|  0| 1|  0|  2|  0|   0|        0
+Mar 14, 26|adv tickets   |Paul                    |   0|  0| 1|  0|  0|  0|   0|        0
+Mar 14, 26|adv tickets   |Tom                     |   0|  0| 8|  0|  0|  0|   0|        0
+Mar 14, 26|adv tickets   |Marvin                  |   0| 15| 2|  0|  1|  0|   0|        0
+Mar 14, 26|adv tickets   |Harvey                  |   0|  0| 2|  0|  2|  0|   0|        0
+Mar 14, 26|door tickets  |end w/start             |   0| 11| 8|  4|  3|  0|   0|        0
+Mar 14, 26|50/50         |end w/start             |   0| 21| 1|  1|  3|  0|   0|        0
+Mar 15, 26|bf supplies   |Steven, P.O. 26031S     |0.50|  4| 0|  0|  2|  1|   0|        0
+Mar 15, 26|cash          |w/o starts              |3.75| 37|29|  7| 31|  5|  24|        0
+Mar 15, 26|cash          |w/starts                |3.75| 67|33| 11| 31|  5|  24|        0
+Apr 03, 26|adv tickets   |Paul                    |   0|  0| 0|  0|  1|  0|   0|        0
+Apr 03, 26|120 Club      |Game 50 50/50           |   0|  9| 0|  0|  3|  0|   0|        0
+Apr 03, 26|120 Club      |Game 50 donation        |0.54|  1| 0|  0|  1|  0|   3|        0
+Apr 03, 26|cash          |w/o starts              |4.29| 47|29|  7| 36|  5|  27|        0
+Apr 03, 26|cash          |w/starts                |4.29| 77|33| 11| 36|  5|  27|        0
+Apr 04, 26|cash          |cash out                |   0| 30|22|  0| 23|  0|   0|        0
+Apr 04, 26|cash          |cash in                 |   0|  0| 0|  0|  0|  2|   5|        0
+Apr 04, 26|cash          |w/o starts              |4.29| 17| 7|  7| 13|  7|  32|        0
+Apr 04, 26|cash          |w/starts                |4.29| 47|11| 11| 13|  7|  32|        0
+Apr 08, 26|expense       |Bruce, purch 3 books    |0.10|  0| 0|  1|  1|  1|   0|        0
+Apr 09, 26|meeting dinner|Steven, Millers         |0.34|  4| 0|  0|  2|  0|   2|        0
+Apr 10, 26|bf supplies   |Steven, PO 260415       |0.20|  0| 1|  1|  1|  0|   0|        0
+Apr 10, 26|expense       |Steven, M/F utensils    |0.25|  1| 1|  1|  1|  0|   0|        0
+Apr 11, 26|adv tickets   |Steven                  |   0|  5| 0|  0|  1|  0|   0|        0
+Apr 11, 26|adv tickets   |Mark P                  |   0|  0| 1|  1|  1|  0|   0|        0
+Apr 11, 26|adv tickets   |Tom                     |   0|  0| 6|  0|  0|  0|   0|        0
+Apr 11, 26|adv tickets   |Marvin                  |   0|  0| 0| -1|  2|  0|   0|        0
+Apr 11, 26|adv tickets   |Bruce                   |   0|  0| 0|  1|  0|  0|   0|        0
+Apr 11, 26|door tickets  |w/start                 |   0| 11| 8|  1|  3|  0|   0|        0
+Apr 11, 26|50/50         |w/start                 |   0| 18| 6|  3|  0|  0|   0|        0
+Apr 12, 26|revenue       |M/F 50/50 income        |1.00| 32|12|  4|  0|  0|   0|        0
+Apr 12, 26|expense       |Marvin, M/F PoFolks     |0.35|  2| 0|  1|  0|  0|   4|        0
+Apr 13, 26|revenue       |M/F settlement          |0.61|  2| 0|  2|  3|  0|   0|        0
+Apr 13, 26|cash          |w/o starts              |4.66| 48|34| 10| 18|  6|  26|        0
+Apr 13, 26|cash          |w/starts                |4.66| 78|38| 14| 18|  6|  26|        0
+Apr 14, 26|cash          |cash out                |   0| 30|28|  3|  5|  0|   0|        0
+Apr 14, 26|cash          |cash in                 |   0|  0| 0|  0|  0|  0|   3|        0
+Apr 14, 26|cash          |w/o starts              |4.66| 18| 6|  7| 13|  6|  29|        0
+Apr 14, 26|cash          |w/starts                |4.66| 48|10| 11| 13|  6|  29|        0
+Jun 01, 26|expense       |July 4 party            |   0|  0| 0|  0|  0|  0|   1|        0
+Jun 01, 26|cash          |w/o starts              |4.66| 18| 6|  7| 13|  6|  28|        0
+Jun 01, 26|cash          |w/starts                |4.66| 48|10| 11| 13|  6|  28|        0
+Nov 02, 26|meeting dinner|Marvin out of petty cash|0.85|  2| 0|  3|  0|  0|   0|        0
+Nov 13, 26|bf supplies   |Steven, P.O. 26111W     |0.60|  7| 2|  1|  1|  0|   0|        0
+Nov 13, 26|bf supplies   |Steven, P.O. 26111S     |0.55|  0| 0|  0|  2|  0|   1|        0
+Nov 14, 26|adv tickets   |Marvin                  |   0| 10| 1|  2|  3|  0|   0|        0
+Nov 14, 26|adv tickets   |Bruce                   |   0|  0| 1|  0|  1|  0|   0|        0
+Nov 14, 26|door tickets  |$28 from Steven         |   0| 18| 5|  2|  8|  0|   0|        5
+Nov 14, 26|adv tickets   |Harry                   |   0|  0| 0|  3|  1|  0|   0|        0
+Nov 14, 26|adv tickets   |David                   |   0|  0| 0|  1|  0|  0|   0|        0
+Nov 14, 26|adv tickets   |Abe                     |   0|  0| 2|  1|  1|  0|   0|        0
+Nov 14, 26|50/50         |end                     |   0| 23| 4|  2|  2|  0|   0|        0
+Nov 16, 26|Sam's card    |Marilyn                 |   0|  0| 0|  0|  3|  0|   0|        0
+Nov 16, 26|cash          |w/o starts              |2.66| 30|13| 10| 23|  6|  27|        0
+Nov 16, 26|cash          |w/starts                |2.66| 60|17| 14| 23|  6|  27|        0
+Nov 22, 26|cash          |cash out                |   0| 12| 6|  4| 11|  0|   0|        0
+Nov 22, 26|cash          |cash in                 |   2|  0| 0|  0|  0|  0|   3|        0
+Nov 22, 26|cash          |w/o starts              |4.66| 18| 7|  6| 12|  6|  30|        0
+Nov 22, 26|cash          |w/starts                |4.66| 48|11| 10| 12|  6|  30|        0
 
 Steps
  id|number|name                                           |state    |last_run           
   1|1     |Before Member Meeting (if new transactions)    |not-run  |                   
   2|2     |Create New Month Folder                        |committed|                   
-  3|3     |Day After Member Meeting                       |not-run  |                   
-  4|4     |Week Before Breakfast                          |not-run  |                   
+  3|3     |Day After Member Meeting                       |committed|                   
+  4|4     |Week Before Breakfast                          |committed|                   
   5|5     |Day After Breakfast                            |not-run  |                   
   6|6     |View/Edit Tables                               |not-run  |                   
   7|7     |Print Forms                                    |not-run  |                   
@@ -227,31 +244,31 @@ Steps
 207|2.F   |Place new Petty Cash Record in Month Folder    |committed|02:49PM, Oct 22, 26
 208|2.G   |Print new Treasurer checklist                  |committed|02:49PM, Oct 22, 26
 209|2.G.1 |Place Treasurer checklist in Month Folder      |not-run  |                   
-301|3.A   |Record meeting dinner reimb as "meeting dinner"|not-run  |                   
-302|3.B   |place dinner reimb receipt in Month Folder     |not-run  |                   
-401|4.A   |Set aside door ticket sales, donation slip     |run      |03:36PM, Nov 13, 26
+301|3.A   |Record meeting dinner reimb as "meeting dinner"|committed|01:00PM, Nov 22, 26
+302|3.B   |place dinner reimb receipt in Month Folder     |committed|01:02PM, Nov 22, 26
+401|4.A   |Set aside door ticket sales, donation slip     |committed|03:36PM, Nov 13, 26
 402|4.A.1 |20x1, 2x5, 2x10 = 50                           |not-run  |                   
-403|4.B   |Set aside 50/50 ticket sales, donation slip    |run      |03:44PM, Nov 13, 26
+403|4.B   |Set aside 50/50 ticket sales, donation slip    |committed|03:44PM, Nov 13, 26
 404|4.B.1 |10x1, 2x5, 2x10 = 40                           |not-run  |                   
-405|4.C   |Place calculator in briefcase                  |run      |03:46PM, Nov 13, 26
-406|4.D   |Get receipts from shoppers                     |not-run  |                   
-407|4.E   |Compare receipts with P.O.s                    |not-run  |                   
+405|4.C   |Place calculator in briefcase                  |committed|03:46PM, Nov 13, 26
+406|4.D   |Get receipts from shoppers                     |committed|01:03PM, Nov 22, 26
+407|4.E   |Compare receipts with P.O.s                    |committed|01:03PM, Nov 22, 26
 408|4.E.1 |note differences on P.O.                       |not-run  |                   
-409|4.F   |Issue reimbs with attached receipt and P.O.    |not-run  |                   
-410|4.G   |Staple reimb receipt to P.O. and receipt       |not-run  |                   
-411|4.H   |Record reimbs as "Sam's card", "bf supplies",  |not-run  |                   
+409|4.F   |Issue reimbs with attached receipt and P.O.    |committed|01:03PM, Nov 22, 26
+410|4.G   |Staple reimb receipt to P.O. and receipt       |committed|01:03PM, Nov 22, 26
+411|4.H   |Record reimbs as "Sam's card", "bf supplies",  |committed|01:03PM, Nov 22, 26
 412|4.H.1 |"expense, bf" (w/detail)                       |not-run  |                   
-413|4.I   |place stapled reimbs in Month Folder           |not-run  |                   
-501|5.A   |Remove calculator from briefcase               |not-run  |                   
-502|5.B   |Record tickets claimed                         |not-run  |                   
-503|5.C   |Count revenue cash                             |not-run  |                   
-504|5.D   |Record breakfast revenue as "adv tickets",     |not-run  |                   
+413|4.I   |place stapled reimbs in Month Folder           |committed|01:10PM, Nov 22, 26
+501|5.A   |Remove calculator from briefcase               |run      |01:11PM, Nov 22, 26
+502|5.B   |Record tickets claimed                         |run      |01:11PM, Nov 22, 26
+503|5.C   |Count revenue cash                             |run      |01:22PM, Nov 22, 26
+504|5.D   |Record breakfast revenue as "adv tickets",     |run      |01:22PM, Nov 22, 26
 505|5.D.1 |"door tickets", "50/50" & "bf donations"       |not-run  |                   
-506|5.E   |Place slips in Month Folder                    |not-run  |                   
-507|5.F   |Update Reconcile                               |not-run  |                   
-508|5.G   |Run cash balance                               |not-run  |                   
-509|5.H   |Count Cash, compare to "cash w/starts"         |not-run  |                   
-510|5.I   |Run cash swap (inserts final cash balance)     |not-run  |                   
+506|5.E   |Place slips in Month Folder                    |run      |01:37PM, Nov 22, 26
+507|5.F   |Update Reconcile                               |run      |01:37PM, Nov 22, 26
+508|5.G   |Run cash balance                               |run      |01:56PM, Nov 22, 26
+509|5.H   |Count Cash, compare to "cash w/starts"         |run      |01:56PM, Nov 22, 26
+510|5.I   |Run cash swap (inserts final cash balance)     |run      |01:56PM, Nov 22, 26
 511|5.J   |Exchange "cash out" for "cash in"              |not-run  |                   
 512|5.K   |Count cash, should match "cash w/starts"       |not-run  |                   
 513|5.L   |Run Treasurer Report                           |not-run  |                   
@@ -269,7 +286,7 @@ Steps
 703|7.C   |50/50 Ticket Sales                             |not-run  |                   
 704|7.D   |Donations                                      |not-run  |                   
 705|7.E   |Receipts                                       |not-run  |                   
-801|8.A   |Save database                                  |rerun    |03:47PM, Nov 13, 26
+801|8.A   |Save database                                  |rerun    |01:56PM, Nov 22, 26
 802|8.B   |git commit/push                                |not-run  |                   
 803|8.C   |Exit                                           |not-run  |                   
 804|8.D   |Abort                                          |not-run  |                   
