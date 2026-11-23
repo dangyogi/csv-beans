@@ -269,8 +269,8 @@ Steps
 508|5.G   |Run cash balance                               |run      |01:56PM, Nov 22, 26
 509|5.H   |Count Cash, compare to "cash w/starts"         |run      |01:56PM, Nov 22, 26
 510|5.I   |Run cash swap (inserts final cash balance)     |run      |01:56PM, Nov 22, 26
-511|5.J   |Exchange "cash out" for "cash in"              |not-run  |                   
-512|5.K   |Count cash, should match "cash w/starts"       |not-run  |                   
+511|5.J   |Exchange "cash out" for "cash in"              |run      |11:30AM, Nov 23, 26
+512|5.K   |Count cash, should match "cash w/starts"       |run      |11:30AM, Nov 23, 26
 513|5.L   |Run Treasurer Report                           |not-run  |                   
 514|5.M   |Print Treasurer Report                         |not-run  |                   
 515|5.N   |Review Treasurer Report                        |not-run  |                   
@@ -286,7 +286,7 @@ Steps
 703|7.C   |50/50 Ticket Sales                             |not-run  |                   
 704|7.D   |Donations                                      |not-run  |                   
 705|7.E   |Receipts                                       |not-run  |                   
-801|8.A   |Save database                                  |rerun    |01:56PM, Nov 22, 26
+801|8.A   |Save database                                  |rerun    |11:31AM, Nov 23, 26
 802|8.B   |git commit/push                                |not-run  |                   
 803|8.C   |Exit                                           |not-run  |                   
 804|8.D   |Abort                                          |not-run  |                   
